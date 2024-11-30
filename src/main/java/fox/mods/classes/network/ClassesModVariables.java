@@ -68,6 +68,11 @@ public class ClassesModVariables {
             PlayerVariables original = ((PlayerVariables) event.getOriginal().getCapability(PLAYER_VARIABLES_CAPABILITY, null).orElse(new PlayerVariables()));
             PlayerVariables clone = ((PlayerVariables) event.getEntity().getCapability(PLAYER_VARIABLES_CAPABILITY, null).orElse(new PlayerVariables()));
             clone.classType = original.classType;
+            clone.leapAbilityCooldown = original.leapAbilityCooldown;
+            clone.leapAbilityInCooldown = original.leapAbilityInCooldown;
+            clone.realTimeTicks = original.realTimeTicks;
+            clone.roarAbilityInCooldown = original.roarAbilityInCooldown;
+            clone.roarAbilityCooldown = original.roarAbilityCooldown;
             if (!event.isWasDeath()) {
             }
         }
@@ -105,6 +110,11 @@ public class ClassesModVariables {
 
     public static class PlayerVariables {
         public PlayerClass classType = PlayerClass.HUMAN;
+        public boolean leapAbilityInCooldown = false;
+        public double leapAbilityCooldown = 30.0;
+        public double realTimeTicks = 0.0415;
+        public boolean roarAbilityInCooldown = false;
+        public double roarAbilityCooldown = 30.0;
 
         public void syncPlayerVariables(Entity entity) {
             if (entity instanceof ServerPlayer serverPlayer)
@@ -114,12 +124,22 @@ public class ClassesModVariables {
         public Tag writeNBT() {
             CompoundTag nbt = new CompoundTag();
             nbt.putString("classType", classType.name());
+            nbt.putDouble("leapAbilityCooldown", leapAbilityCooldown);
+            nbt.putBoolean("leapAbilityInCooldown", leapAbilityInCooldown);
+            nbt.putDouble("realTimeTicks", realTimeTicks);
+            nbt.putBoolean("roarAbilityInCooldown", roarAbilityInCooldown);
+            nbt.putDouble("roarAbilityCooldown", roarAbilityCooldown);
             return nbt;
         }
 
         public void readNBT(Tag tag) {
             CompoundTag nbt = (CompoundTag) tag;
             classType = PlayerClass.fromString(nbt.getString("classType"));
+            leapAbilityCooldown = nbt.getDouble("leapAbilityCooldown");
+            leapAbilityInCooldown = nbt.getBoolean("leapAbilityInCooldown");
+            realTimeTicks = nbt.getDouble("realTimeTicks");
+            roarAbilityCooldown = nbt.getDouble("roarAbilityCooldown");
+            roarAbilityInCooldown = nbt.getBoolean("roarAbilityInCooldown");
         }
     }
 
@@ -150,6 +170,11 @@ public class ClassesModVariables {
                             .getCapability(PLAYER_VARIABLES_CAPABILITY, null)
                             .orElse(new PlayerVariables());
                     variables.classType = message.data.classType;
+                    variables.leapAbilityCooldown = message.data.leapAbilityCooldown;
+                    variables.leapAbilityInCooldown = message.data.leapAbilityInCooldown;
+                    variables.realTimeTicks = message.data.realTimeTicks;
+                    variables.roarAbilityCooldown = message.data.roarAbilityCooldown;
+                    variables.roarAbilityInCooldown = message.data.roarAbilityInCooldown;
                 }
             });
             context.setPacketHandled(true);

@@ -1,5 +1,6 @@
 package fox.mods.classes.command;
 
+import fox.mods.classes.ClassesMod;
 import fox.mods.classes.utils.ScreensUtils;
 import net.minecraft.commands.Commands;
 import net.minecraft.core.Direction;
@@ -27,7 +28,7 @@ public class OpenSelectClassScreenCommand {
             if (entity != null)
                 direction = entity.getDirection();
 
-            ScreensUtils.open("SelectClass", world, x, y, z, entity);
+            ScreensUtils.open(ClassesMod.SELECT_CLASSES_STRING_NAME, world, x, y, z, entity);
             return 0;
         }));
     }

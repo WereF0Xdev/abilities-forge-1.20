@@ -17,24 +17,26 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.LevelAccessor;
 
 public class SelectClass {
-    public static void predator(Player player) {
+    public static void predator(Player player, Boolean showMessage) {
         PlayerClass playerClass = PlayerClass.PREDATOR;
-        select(player, playerClass);
+        select(player, playerClass, showMessage);
         addValueToAttribute(player, Attributes.ATTACK_DAMAGE, 1.5);
         removeValueFromAttribute(player, Attributes.MAX_HEALTH, 4);
         updateHealth(player);
         player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 999999999, 1, false, false));
     }
 
-        public static void ghost(Player player) {
+        public static void ghost(Player player, Boolean showMessage) {
         PlayerClass playerClass = PlayerClass.GHOST;
-        select(player, playerClass);
+        select(player, playerClass, showMessage);
     }
 
-    private static void select(Player player, PlayerClass playerClass) {
+    private static void select(Player player, PlayerClass playerClass, Boolean showMessage) {
         PlayerClassUtils.setPlayerClass(player, playerClass);
         ScreensUtils.close(player);
-        showMessage(player, playerClass);
+        if (showMessage) {
+            showMessage(player, playerClass);
+        }
     }
 
     private static void addValueToAttribute(Player player, Attribute attribute, double value) {

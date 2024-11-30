@@ -31,6 +31,8 @@ import java.util.AbstractMap;
 public class ClassesMod {
     public static final Logger LOGGER = LogManager.getLogger(ClassesMod.class);
     public static final String MODID = "classes";
+    public static final String SELECT_CLASSES_STRING_NAME = "SelectClass";
+    public static final Double LEAP_MULTIPLIER = 3.0;
 
     public ClassesMod() {
 

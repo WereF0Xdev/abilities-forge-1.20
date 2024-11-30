@@ -65,11 +65,11 @@ public class SelectClassButtonMessage {
             return;
         if (buttonID == 0) {
 
-            SelectClass.predator(entity);
+            SelectClass.predator(entity, true);
         }
         if (buttonID == 1) {
 
-            SelectClass.ghost(entity);
+            SelectClass.ghost(entity, true);
         }
     }
 
