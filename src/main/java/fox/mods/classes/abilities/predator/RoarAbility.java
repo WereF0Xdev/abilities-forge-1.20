@@ -3,8 +3,11 @@ package fox.mods.classes.abilities.predator;
 import fox.mods.classes.network.ClassesModVariables;
 import fox.mods.classes.utils.PlayerClassUtils;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -44,6 +47,7 @@ public class RoarAbility {
                         _level.playLocalSound(x, y, z, ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("entity.warden.roar")), SoundSource.NEUTRAL, 20, 1, false);
                     }
                 }
+                spawnSphereParticles(player, player.level(), 35, 2);
                 player.addEffect(new MobEffectInstance(MobEffects.DARKNESS, 40, 0, false, false));
                 {
                     final Vec3 _center = new Vec3(x, y, z);
@@ -77,4 +81,30 @@ public class RoarAbility {
         player.removeEffect(MobEffects.MOVEMENT_SLOWDOWN);
         player.removeEffect(MobEffects.BLINDNESS);
     }
+
+    public static void spawnSphereParticles(Player player, Level level, int particleCount, double radius) {
+        if (!(level instanceof ServerLevel serverLevel)) {
+            return;
+        }
+
+        double playerX = player.getX();
+        double playerY = player.getY() + 1;
+        double playerZ = player.getZ();
+
+        for (int i = 0; i < particleCount; i++) {
+            double theta = Math.random() * 2 * Math.PI;
+            double phi = Math.acos(2 * Math.random() - 1);
+
+            double offsetX = radius * Math.sin(phi) * Math.cos(theta);
+            double offsetY = radius * Math.cos(phi);
+            double offsetZ = radius * Math.sin(phi) * Math.sin(theta);
+
+            double x = playerX + offsetX;
+            double y = playerY + offsetY;
+            double z = playerZ + offsetZ;
+
+            serverLevel.sendParticles(ParticleTypes.SONIC_BOOM, x, y, z, 1, 0, 0, 0, 0);
+        }
+    }
+
 }

@@ -26,10 +26,19 @@ public class SelectClass {
         player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 999999999, 1, false, false));
     }
 
-        public static void ghost(Player player, Boolean showMessage) {
+    public static void ghost(Player player, Boolean showMessage) {
         PlayerClass playerClass = PlayerClass.GHOST;
         select(player, playerClass, showMessage);
     }
+
+    public static void spider(Player player, boolean showMessage) {
+        PlayerClass playerClass = PlayerClass.SPIDER;
+        select(player, playerClass, showMessage);
+        removeValueFromAttribute(player, Attributes.MAX_HEALTH, 8);
+        updateHealth(player);
+        player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 999999999, 0, false, false));
+    }
+
 
     private static void select(Player player, PlayerClass playerClass, Boolean showMessage) {
         PlayerClassUtils.setPlayerClass(player, playerClass);

@@ -31,6 +31,8 @@ public class PlayerRespawns {
                 SelectClass.predator(_player, false);
             } else if (PlayerClassUtils.isGhost(_player)) {
                 SelectClass.ghost(_player, false);
+            } else if (PlayerClassUtils.isSpider(_player)) {
+                SelectClass.spider(_player, false);
             }
         }
     }

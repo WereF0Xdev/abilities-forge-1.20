@@ -45,4 +45,17 @@ public class PlayerClassUtils {
         }
         return bool;
     }
+
+    public static boolean isSpider(Player player) {
+        boolean bool = false;
+        PlayerClass playerClass = player.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null)
+                .map(playerVariables -> playerVariables.classType)
+                .orElse(PlayerClass.HUMAN);
+
+        if (playerClass == PlayerClass.SPIDER) {
+            bool = true;
+        }
+        return bool;
+    }
+
 }

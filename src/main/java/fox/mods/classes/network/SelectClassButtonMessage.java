@@ -69,7 +69,7 @@ public class SelectClassButtonMessage {
         }
         if (buttonID == 1) {
 
-            SelectClass.ghost(entity, true);
+            SelectClass.spider(entity, true);
         }
     }
 
