@@ -73,6 +73,9 @@ public class ClassesModVariables {
             clone.realTimeTicks = original.realTimeTicks;
             clone.roarAbilityInCooldown = original.roarAbilityInCooldown;
             clone.roarAbilityCooldown = original.roarAbilityCooldown;
+            clone.spiderRampage = original.spiderRampage;
+            clone.spiderRampageInCooldown = original.spiderRampageInCooldown;
+            clone.spiderRampageCooldown = original.spiderRampageCooldown;
             if (!event.isWasDeath()) {
             }
         }
@@ -115,6 +118,9 @@ public class ClassesModVariables {
         public double realTimeTicks = 0.0415;
         public boolean roarAbilityInCooldown = false;
         public double roarAbilityCooldown = 30.0;
+        public boolean spiderRampage = false;
+        public boolean spiderRampageInCooldown = false;
+        public double spiderRampageCooldown = 60.0;
 
         public void syncPlayerVariables(Entity entity) {
             if (entity instanceof ServerPlayer serverPlayer)
@@ -129,6 +135,10 @@ public class ClassesModVariables {
             nbt.putDouble("realTimeTicks", realTimeTicks);
             nbt.putBoolean("roarAbilityInCooldown", roarAbilityInCooldown);
             nbt.putDouble("roarAbilityCooldown", roarAbilityCooldown);
+            nbt.putBoolean("spiderRampage", spiderRampage);
+            nbt.putBoolean("spiderRampageInCooldown", spiderRampageInCooldown);
+            nbt.putDouble("spiderRampageCooldown", spiderRampageCooldown);
+
             return nbt;
         }
 
@@ -140,6 +150,9 @@ public class ClassesModVariables {
             realTimeTicks = nbt.getDouble("realTimeTicks");
             roarAbilityCooldown = nbt.getDouble("roarAbilityCooldown");
             roarAbilityInCooldown = nbt.getBoolean("roarAbilityInCooldown");
+            spiderRampage = nbt.getBoolean("spiderRampage");
+            spiderRampageInCooldown = nbt.getBoolean("spiderRampageInCooldown");
+            spiderRampageCooldown = nbt.getDouble("spiderRampageCooldown");
         }
     }
 
@@ -175,6 +188,9 @@ public class ClassesModVariables {
                     variables.realTimeTicks = message.data.realTimeTicks;
                     variables.roarAbilityCooldown = message.data.roarAbilityCooldown;
                     variables.roarAbilityInCooldown = message.data.roarAbilityInCooldown;
+                    variables.spiderRampage = message.data.spiderRampage;
+                    variables.spiderRampageInCooldown = message.data.spiderRampageInCooldown;
+                    variables.spiderRampageCooldown = message.data.spiderRampageCooldown;
                 }
             });
             context.setPacketHandled(true);

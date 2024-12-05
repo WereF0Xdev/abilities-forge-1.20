@@ -15,6 +15,7 @@ import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraftforge.common.ForgeMod;
 
 public class SelectClass {
     public static void predator(Player player, Boolean showMessage) {
@@ -36,7 +37,6 @@ public class SelectClass {
         select(player, playerClass, showMessage);
         removeValueFromAttribute(player, Attributes.MAX_HEALTH, 8);
         updateHealth(player);
-        player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 999999999, 0, false, false));
     }
 
 
@@ -52,6 +52,12 @@ public class SelectClass {
         if (player.getAttributes().hasAttribute(attribute))
             player.getAttribute(attribute)
                     .setBaseValue(((player.getAttributes().hasAttribute(attribute) ? player.getAttribute(attribute).getBaseValue() : 0) + value));
+    }
+
+    private static void setValueToAttribute(Player player, Attribute attribute, double value) {
+        if (player.getAttributes().hasAttribute(attribute))
+            player.getAttribute(attribute)
+                    .setBaseValue(value);
     }
 
     private static void removeValueFromAttribute(Player player, Attribute attribute, double value) {

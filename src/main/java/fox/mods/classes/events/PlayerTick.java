@@ -1,5 +1,11 @@
 package fox.mods.classes.events;
 
+import fox.mods.classes.utils.PlayerClassUtils;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.biome.Biomes;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.eventbus.api.Event;
@@ -36,6 +42,18 @@ public class PlayerTick {
         boolean roarInCooldown = (entity.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new ClassesModVariables.PlayerVariables())).roarAbilityInCooldown;
         double roarCooldown = (entity.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new ClassesModVariables.PlayerVariables())).roarAbilityCooldown;
 
+        boolean spiderRampageInCooldown = (entity.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new ClassesModVariables.PlayerVariables())).spiderRampageInCooldown;
+        double spiderRampageCooldown = (entity.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new ClassesModVariables.PlayerVariables())).spiderRampageCooldown;
+
+        LevelAccessor world = entity.level();
+
+        if (world.getLevelData().isRaining() && entity.level().canSeeSky(entity.blockPosition()) || entity.isInWater()) {
+            if (!(entity.level().getBiome(entity.blockPosition()) == Biomes.DESERT) || !(entity.level().getBiome(entity.blockPosition()) == Biomes.SAVANNA)) {
+                if (entity instanceof Player player && PlayerClassUtils.isSpider(player)) {
+                    player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 40, 0));
+                }
+            }
+        }
 
         if (leapInCooldown) {
             {
@@ -85,6 +103,41 @@ public class PlayerTick {
                 double _setval = 30;
                 entity.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
                     capability.roarAbilityCooldown = _setval;
+                    capability.syncPlayerVariables(entity);
+                });
+            }
+        }
+
+        if (spiderRampageInCooldown) {
+            {
+                double _setval = spiderRampageCooldown - realTimeTicks;
+                entity.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
+                    capability.spiderRampageCooldown = _setval;
+                    capability.syncPlayerVariables(entity);
+                });
+            }
+        }
+        if (spiderRampageCooldown <= 0) {
+            {
+                boolean _setval = false;
+                entity.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
+                    capability.spiderRampageInCooldown = _setval;
+                    capability.syncPlayerVariables(entity);
+                });
+            }
+            {
+                double _setval = 60;
+                entity.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
+                    capability.spiderRampageCooldown = _setval;
+                    capability.syncPlayerVariables(entity);
+                });
+            }
+        }
+        if (spiderRampageCooldown <= 30 && spiderRampageCooldown > 28) {
+            {
+                boolean _setval = false;
+                entity.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
+                    capability.spiderRampage = _setval;
                     capability.syncPlayerVariables(entity);
                 });
             }

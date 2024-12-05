@@ -1,6 +1,8 @@
 package fox.mods.classes;
 
 import fox.mods.classes.init.ClassesModMenus;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraftforge.common.ForgeMod;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 

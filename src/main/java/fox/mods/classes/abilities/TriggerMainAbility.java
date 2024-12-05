@@ -1,6 +1,7 @@
 package fox.mods.classes.abilities;
 
 import fox.mods.classes.abilities.predator.LeapAbility;
+import fox.mods.classes.abilities.spider.SpiderRampageAbility;
 import fox.mods.classes.utils.PlayerClassUtils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
@@ -11,8 +12,8 @@ public class TriggerMainAbility {
 
         if (PlayerClassUtils.isPredator(player)) {
             LeapAbility.trigger(player);
-        } else if (PlayerClassUtils.isGhost(player)) {
-            player.displayClientMessage(Component.literal("Work in progress."), true);
+        } else if (PlayerClassUtils.isSpider(player)) {
+            SpiderRampageAbility.toggle(player);
         }
     }
 }
