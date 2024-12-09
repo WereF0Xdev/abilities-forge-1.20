@@ -1,6 +1,7 @@
 package fox.mods.classes;
 
 import fox.mods.classes.init.ClassesModMenus;
+import fox.mods.classes.init.ClassesModEntities;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraftforge.common.ForgeMod;
 import org.apache.logging.log4j.Logger;
@@ -41,6 +42,7 @@ public class ClassesMod {
         MinecraftForge.EVENT_BUS.register(this);
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
 
+        ClassesModEntities.REGISTRY.register(bus);
         ClassesModMenus.REGISTRY.register(bus);
 
     }

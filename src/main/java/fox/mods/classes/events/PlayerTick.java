@@ -42,8 +42,11 @@ public class PlayerTick {
         boolean roarInCooldown = (entity.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new ClassesModVariables.PlayerVariables())).roarAbilityInCooldown;
         double roarCooldown = (entity.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new ClassesModVariables.PlayerVariables())).roarAbilityCooldown;
 
-        boolean spiderRampageInCooldown = (entity.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new ClassesModVariables.PlayerVariables())).spiderRampageInCooldown;
-        double spiderRampageCooldown = (entity.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new ClassesModVariables.PlayerVariables())).spiderRampageCooldown;
+        boolean spiderRampageInCooldown = (entity.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new ClassesModVariables.PlayerVariables())).rampageInCooldown;
+        double spiderRampageCooldown = (entity.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new ClassesModVariables.PlayerVariables())).rampageCooldown;
+
+        boolean webShotInCooldown = (entity.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new ClassesModVariables.PlayerVariables())).webShotInCooldown;
+        double webShotCooldown = (entity.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new ClassesModVariables.PlayerVariables())).webShotCooldown;
 
         LevelAccessor world = entity.level();
 
@@ -53,6 +56,10 @@ public class PlayerTick {
                     player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 40, 0));
                 }
             }
+        }
+
+        if (entity.isShiftKeyDown() && entity instanceof Player player && PlayerClassUtils.isSpider(player) && !entity.isInWater()) {
+            player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 20, 0));
         }
 
         if (leapInCooldown) {
@@ -112,7 +119,7 @@ public class PlayerTick {
             {
                 double _setval = spiderRampageCooldown - realTimeTicks;
                 entity.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
-                    capability.spiderRampageCooldown = _setval;
+                    capability.rampageCooldown = _setval;
                     capability.syncPlayerVariables(entity);
                 });
             }
@@ -121,14 +128,14 @@ public class PlayerTick {
             {
                 boolean _setval = false;
                 entity.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
-                    capability.spiderRampageInCooldown = _setval;
+                    capability.rampageInCooldown = _setval;
                     capability.syncPlayerVariables(entity);
                 });
             }
             {
                 double _setval = 60;
                 entity.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
-                    capability.spiderRampageCooldown = _setval;
+                    capability.rampageCooldown = _setval;
                     capability.syncPlayerVariables(entity);
                 });
             }
@@ -137,7 +144,33 @@ public class PlayerTick {
             {
                 boolean _setval = false;
                 entity.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
-                    capability.spiderRampage = _setval;
+                    capability.rampage = _setval;
+                    capability.syncPlayerVariables(entity);
+                });
+            }
+        }
+
+        if (webShotInCooldown) {
+            {
+                double _setval = webShotCooldown - realTimeTicks;
+                entity.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
+                    capability.webShotCooldown = _setval;
+                    capability.syncPlayerVariables(entity);
+                });
+            }
+        }
+        if (webShotCooldown <= 0) {
+            {
+                boolean _setval = false;
+                entity.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
+                    capability.webShotInCooldown = _setval;
+                    capability.syncPlayerVariables(entity);
+                });
+            }
+            {
+                double _setval = 30;
+                entity.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
+                    capability.webShotCooldown = _setval;
                     capability.syncPlayerVariables(entity);
                 });
             }

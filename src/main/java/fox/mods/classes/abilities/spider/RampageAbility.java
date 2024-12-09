@@ -1,15 +1,18 @@
 package fox.mods.classes.abilities.spider;
 
 import fox.mods.classes.network.ClassesModVariables;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.DustColorTransitionOptions;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.joml.Vector3f;
 
-public class SpiderRampageAbility {
+public class RampageAbility {
 
     public static void toggle(Player player) {
         if (!isInCooldown(player)) {
@@ -22,7 +25,7 @@ public class SpiderRampageAbility {
     }
 
     public static boolean isToggled(Player player) {
-        boolean abilityState = (player.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new ClassesModVariables.PlayerVariables())).spiderRampage;
+        boolean abilityState = (player.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new ClassesModVariables.PlayerVariables())).rampage;
         return abilityState;
     }
 
@@ -30,7 +33,7 @@ public class SpiderRampageAbility {
         {
             boolean _setval = true;
             player.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
-                capability.spiderRampage = _setval;
+                capability.rampage = _setval;
                 capability.syncPlayerVariables(player);
             });
         }
@@ -38,22 +41,23 @@ public class SpiderRampageAbility {
         {
             boolean _setval = true;
             player.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
-                capability.spiderRampageInCooldown = _setval;
+                capability.rampageInCooldown = _setval;
                 capability.syncPlayerVariables(player);
             });
         }
 
+        playSound(player);
         spawnCircleParticles(player, player.level(), 30, 2);
     }
 
     public static boolean isInCooldown(Player player) {
-        boolean abilityInCooldown = (player.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new ClassesModVariables.PlayerVariables())).spiderRampageInCooldown;
+        boolean abilityInCooldown = (player.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new ClassesModVariables.PlayerVariables())).rampageInCooldown;
         return abilityInCooldown;
     }
 
     public static void displayCooldownMessage(Player player) {
-        double abilityCooldown = (player.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new ClassesModVariables.PlayerVariables())).spiderRampageCooldown;
-        player.displayClientMessage(Component.literal("§cSpider Rampage §fis charging! §7(" + (new java.text.DecimalFormat("##").format(abilityCooldown)) + "s)"), true);
+        double abilityCooldown = (player.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new ClassesModVariables.PlayerVariables())).rampageCooldown;
+        player.displayClientMessage(Component.literal("§cRampage §fis charging! §7(" + (new java.text.DecimalFormat("##").format(abilityCooldown)) + "s)"), true);
     }
 
     public static void spawnCircleParticles(Player player, Level level, int particleCount, double radius) {
@@ -78,6 +82,18 @@ public class SpiderRampageAbility {
             DustColorTransitionOptions particleOptions = new DustColorTransitionOptions(startColor, endColor, particleSize);
 
             serverLevel.sendParticles(particleOptions, x, playerY, z, 1, 0, 0, 0, 0);
+        }
+    }
+
+    public static void playSound(Player player) {
+        Level _level = player.level();
+        double x = player.getX();
+        double y = player.getY();
+        double z = player.getZ();
+        if (!_level.isClientSide()) {
+            _level.playSound(null, BlockPos.containing(x, y, z), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("entity.wither.spawn")), SoundSource.NEUTRAL, 20, 1);
+        } else {
+            _level.playLocalSound(x, y, z, ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("entity.wither.spawn")), SoundSource.NEUTRAL, 20, 1, false);
         }
     }
 }

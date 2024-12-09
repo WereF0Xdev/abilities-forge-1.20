@@ -41,7 +41,7 @@ public class PlayerFalls {
             double y = player.getY();
             double z = player.getZ();
             if (distance >= 2.5) {
-                if (PlayerClassUtils.isSpider(player)) {
+                if (false) {
                     if (event != null && event.isCancelable()) {
                         event.setCanceled(true);
                     } else if (event != null && event.hasResult()) {

@@ -32,7 +32,7 @@ public class PlayerHitsEntity {
         if (entity == null || sourceentity == null)
             return;
         if (sourceentity instanceof Player player && PlayerClassUtils.isSpider(player)) {
-            boolean spiderRampage = (player.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new ClassesModVariables.PlayerVariables())).spiderRampage;
+            boolean spiderRampage = (player.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new ClassesModVariables.PlayerVariables())).rampage;
             if (spiderRampage) {
                 if (!entity.level().isClientSide) {
                     BlockPos entityPos = entity.blockPosition();

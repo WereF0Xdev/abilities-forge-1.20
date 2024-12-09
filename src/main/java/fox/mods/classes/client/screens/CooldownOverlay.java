@@ -3,6 +3,8 @@ package fox.mods.classes.client.screens;
 import com.mojang.blaze3d.vertex.PoseStack;
 import fox.mods.classes.data.gui.abilities.predator.leap.*;
 import fox.mods.classes.data.gui.abilities.predator.roar.*;
+import fox.mods.classes.data.gui.abilities.spider.rampage.DisplayRampageAbilityBar;
+import fox.mods.classes.data.gui.abilities.spider.webshot.DisplayWebShotAbilityBar;
 import fox.mods.classes.utils.PlayerClassUtils;
 
 import net.minecraftforge.fml.common.Mod;
@@ -53,47 +55,47 @@ public class CooldownOverlay {
         RenderSystem.setShaderColor(1, 1, 1, 1);
         if (true) {
             if (PlayerClassUtils.isPredator(entity)) {
-                if (DisplayLeapAbilityBarEmpty.data(entity)) {
+                if (DisplayLeapAbilityBar.empty(entity)) {
                     event.getGuiGraphics().blit(new ResourceLocation("classes:textures/screens/leap_empty.png"), w / 2 + mainAbilityBarXPos, h - mainAbilityBarYPos, 0, 0, 61, 5, 61, 5);
                 }
-                if (DisplayLeapAbilityBarFull.data(entity)) {
+                if (DisplayLeapAbilityBar.full(entity)) {
                     event.getGuiGraphics().blit(new ResourceLocation("classes:textures/screens/leap_ready.png"), w / 2 + mainAbilityBarXPos, h - mainAbilityBarYPos, 0, 0, 61, 5, 61, 5);
                 }
-                if (DisplayLeapAbilityBarFile5.data(entity)) {
+                if (DisplayLeapAbilityBar.file5(entity)) {
                     event.getGuiGraphics().blit(new ResourceLocation("classes:textures/screens/leap_cooldown_5.png"), w / 2 + mainAbilityBarXPos, h - mainAbilityBarYPos, 0, 0, 61, 5, 61, 5);
                 }
-                if (DisplayLeapAbilityBarFile10.data(entity)) {
+                if (DisplayLeapAbilityBar.file10(entity)) {
                     event.getGuiGraphics().blit(new ResourceLocation("classes:textures/screens/leap_cooldown_10.png"), w / 2 + mainAbilityBarXPos, h - mainAbilityBarYPos, 0, 0, 61, 5, 61, 5);
                 }
-                if (DisplayLeapAbilityBarFile15.data(entity)) {
+                if (DisplayLeapAbilityBar.file15(entity)) {
                     event.getGuiGraphics().blit(new ResourceLocation("classes:textures/screens/leap_cooldown_15.png"), w / 2 + mainAbilityBarXPos, h - mainAbilityBarYPos, 0, 0, 61, 5, 61, 5);
                 }
-                if (DisplayLeapAbilityBarFile20.data(entity)) {
+                if (DisplayLeapAbilityBar.file20(entity)) {
                     event.getGuiGraphics().blit(new ResourceLocation("classes:textures/screens/leap_cooldown_20.png"), w / 2 + mainAbilityBarXPos, h - mainAbilityBarYPos, 0, 0, 61, 5, 61, 5);
                 }
-                if (DisplayLeapAbilityBarFile25.data(entity)) {
+                if (DisplayLeapAbilityBar.file25(entity)) {
                     event.getGuiGraphics().blit(new ResourceLocation("classes:textures/screens/leap_cooldown_25.png"), w / 2 + mainAbilityBarXPos, h - mainAbilityBarYPos, 0, 0, 61, 5, 61, 5);
                 }
 
-                if (DisplayRoarAbilityBarEmpty.data(entity)) {
+                if (DisplayRoarAbilityBar.empty(entity)) {
                     event.getGuiGraphics().blit(new ResourceLocation("classes:textures/screens/roar_empty.png"), w / 2 + secondaryAbilityBarXPos, h - secondaryAbilityBarYPos, 0, 0, 61, 5, 61, 5);
                 }
-                if (DisplayRoarAbilityBarFull.data(entity)) {
+                if (DisplayRoarAbilityBar.full(entity)) {
                     event.getGuiGraphics().blit(new ResourceLocation("classes:textures/screens/roar_ready.png"), w / 2 + secondaryAbilityBarXPos, h - secondaryAbilityBarYPos, 0, 0, 61, 5, 61, 5);
                 }
-                if (DisplayRoarAbilityBarFile5.data(entity)) {
+                if (DisplayRoarAbilityBar.file5(entity)) {
                     event.getGuiGraphics().blit(new ResourceLocation("classes:textures/screens/roar_cooldown_5.png"), w / 2 + secondaryAbilityBarXPos, h - secondaryAbilityBarYPos, 0, 0, 61, 5, 61, 5);
                 }
-                if (DisplayRoarAbilityBarFile10.data(entity)) {
+                if (DisplayRoarAbilityBar.file10(entity)) {
                     event.getGuiGraphics().blit(new ResourceLocation("classes:textures/screens/roar_cooldown_10.png"), w / 2 + secondaryAbilityBarXPos, h - secondaryAbilityBarYPos, 0, 0, 61, 5, 61, 5);
                 }
-                if (DisplayRoarAbilityBarFile15.data(entity)) {
+                if (DisplayRoarAbilityBar.file15(entity)) {
                     event.getGuiGraphics().blit(new ResourceLocation("classes:textures/screens/roar_cooldown_15.png"), w / 2 + secondaryAbilityBarXPos, h - secondaryAbilityBarYPos, 0, 0, 61, 5, 61, 5);
                 }
-                if (DisplayRoarAbilityBarFile20.data(entity)) {
+                if (DisplayRoarAbilityBar.file20(entity)) {
                     event.getGuiGraphics().blit(new ResourceLocation("classes:textures/screens/roar_cooldown_20.png"), w / 2 + secondaryAbilityBarXPos, h - secondaryAbilityBarYPos, 0, 0, 61, 5, 61, 5);
                 }
-                if (DisplayRoarAbilityBarFile25.data(entity)) {
+                if (DisplayRoarAbilityBar.file25(entity)) {
                     event.getGuiGraphics().blit(new ResourceLocation("classes:textures/screens/roar_cooldown_25.png"), w / 2 + secondaryAbilityBarXPos, h - secondaryAbilityBarYPos, 0, 0, 61, 5, 61, 5);
                 }
 
@@ -160,6 +162,114 @@ public class CooldownOverlay {
                 poseStack.popPose();
 
 
+            }
+
+            if (PlayerClassUtils.isSpider(entity)) {
+                if (DisplayRampageAbilityBar.empty(entity)) {
+                    event.getGuiGraphics().blit(new ResourceLocation("classes:textures/screens/rampage_empty.png"), w / 2 + mainAbilityBarXPos, h - mainAbilityBarYPos, 0, 0, 61, 5, 61, 5);
+                }
+                if (DisplayRampageAbilityBar.full(entity)) {
+                    event.getGuiGraphics().blit(new ResourceLocation("classes:textures/screens/rampage_ready.png"), w / 2 + mainAbilityBarXPos, h - mainAbilityBarYPos, 0, 0, 61, 5, 61, 5);
+                }
+                if (DisplayRampageAbilityBar.file5(entity)) {
+                    event.getGuiGraphics().blit(new ResourceLocation("classes:textures/screens/rampage_cooldown_5.png"), w / 2 + mainAbilityBarXPos, h - mainAbilityBarYPos, 0, 0, 61, 5, 61, 5);
+                }
+                if (DisplayRampageAbilityBar.file10(entity)) {
+                    event.getGuiGraphics().blit(new ResourceLocation("classes:textures/screens/rampage_cooldown_10.png"), w / 2 + mainAbilityBarXPos, h - mainAbilityBarYPos, 0, 0, 61, 5, 61, 5);
+                }
+                if (DisplayRampageAbilityBar.file15(entity)) {
+                    event.getGuiGraphics().blit(new ResourceLocation("classes:textures/screens/rampage_cooldown_15.png"), w / 2 + mainAbilityBarXPos, h - mainAbilityBarYPos, 0, 0, 61, 5, 61, 5);
+                }
+                if (DisplayRampageAbilityBar.file20(entity)) {
+                    event.getGuiGraphics().blit(new ResourceLocation("classes:textures/screens/rampage_cooldown_20.png"), w / 2 + mainAbilityBarXPos, h - mainAbilityBarYPos, 0, 0, 61, 5, 61, 5);
+                }
+                if (DisplayRampageAbilityBar.file25(entity)) {
+                    event.getGuiGraphics().blit(new ResourceLocation("classes:textures/screens/rampage_cooldown_25.png"), w / 2 + mainAbilityBarXPos, h - mainAbilityBarYPos, 0, 0, 61, 5, 61, 5);
+                }
+
+                if (DisplayWebShotAbilityBar.empty(entity)) {
+                    event.getGuiGraphics().blit(new ResourceLocation("classes:textures/screens/webshot_empty.png"), w / 2 + secondaryAbilityBarXPos, h - secondaryAbilityBarYPos, 0, 0, 61, 5, 61, 5);
+                }
+                if (DisplayWebShotAbilityBar.full(entity)) {
+                    event.getGuiGraphics().blit(new ResourceLocation("classes:textures/screens/webshot_ready.png"), w / 2 + secondaryAbilityBarXPos, h - secondaryAbilityBarYPos, 0, 0, 61, 5, 61, 5);
+                }
+                if (DisplayWebShotAbilityBar.file5(entity)) {
+                    event.getGuiGraphics().blit(new ResourceLocation("classes:textures/screens/webshot_cooldown_5.png"), w / 2 + secondaryAbilityBarXPos, h - secondaryAbilityBarYPos, 0, 0, 61, 5, 61, 5);
+                }
+                if (DisplayWebShotAbilityBar.file10(entity)) {
+                    event.getGuiGraphics().blit(new ResourceLocation("classes:textures/screens/webshot_cooldown_10.png"), w / 2 + secondaryAbilityBarXPos, h - secondaryAbilityBarYPos, 0, 0, 61, 5, 61, 5);
+                }
+                if (DisplayWebShotAbilityBar.file15(entity)) {
+                    event.getGuiGraphics().blit(new ResourceLocation("classes:textures/screens/webshot_cooldown_15.png"), w / 2 + secondaryAbilityBarXPos, h - secondaryAbilityBarYPos, 0, 0, 61, 5, 61, 5);
+                }
+                if (DisplayWebShotAbilityBar.file20(entity)) {
+                    event.getGuiGraphics().blit(new ResourceLocation("classes:textures/screens/webshot_cooldown_20.png"), w / 2 + secondaryAbilityBarXPos, h - secondaryAbilityBarYPos, 0, 0, 61, 5, 61, 5);
+                }
+                if (DisplayWebShotAbilityBar.file25(entity)) {
+                    event.getGuiGraphics().blit(new ResourceLocation("classes:textures/screens/webshot_cooldown_25.png"), w / 2 + secondaryAbilityBarXPos, h - secondaryAbilityBarYPos, 0, 0, 61, 5, 61, 5);
+                }
+
+                PoseStack poseStack = event.getGuiGraphics().pose();
+                poseStack.pushPose();
+
+                float scale = 0.75f;
+                poseStack.scale(scale, scale, scale);
+
+                int rampageScaledX = (int)((w / 2 + mainAbilityBarTextXPos) / scale);
+                int rampageScaledY = (int)((h - mainAbilityBarTextYPos) / scale);
+
+                String rampageText = "ʀᴀᴍᴘᴀɢᴇ";
+
+                int textWidth = Minecraft.getInstance().font.width(rampageText);
+
+                int startColor = 0xFF6B0000;
+                int endColor = 0xFF990000;
+                int length = rampageText.length();
+
+                for (int i = 0; i < length; i++) {
+                    char character = rampageText.charAt(i);
+
+                    float ratio = (float) i / (length - 1);
+                    int r = (int) ((1 - ratio) * ((startColor >> 16) & 0xFF) + ratio * ((endColor >> 16) & 0xFF));
+                    int g = (int) ((1 - ratio) * ((startColor >> 8) & 0xFF) + ratio * ((endColor >> 8) & 0xFF));
+                    int b = (int) ((1 - ratio) * (startColor & 0xFF) + ratio * (endColor & 0xFF));
+                    int color = (0xFF << 24) | (r << 16) | (g << 8) | b;
+
+                    event.getGuiGraphics().drawString(
+                            Minecraft.getInstance().font,
+                            String.valueOf(character),
+                            rampageScaledX + Minecraft.getInstance().font.width(rampageText.substring(0, i)),
+                            rampageScaledY,
+                            color,
+                            false
+                    );
+                }
+
+                int webShotScaledX = (int)((w / 2 + secondaryAbilityBarTextXPos) / scale);
+                int webShotScaledY = (int)((h - secondaryAbilityBarTextYPos) / scale);
+
+                String webShotText = "ᴡᴇʙsʜᴏᴛ";
+
+                for (int i = 0; i < length; i++) {
+                    char character = webShotText.charAt(i);
+
+                    float ratio = (float) i / (length - 1);
+                    int r = (int) ((1 - ratio) * ((startColor >> 16) & 0xFF) + ratio * ((endColor >> 16) & 0xFF));
+                    int g = (int) ((1 - ratio) * ((startColor >> 8) & 0xFF) + ratio * ((endColor >> 8) & 0xFF));
+                    int b = (int) ((1 - ratio) * (startColor & 0xFF) + ratio * (endColor & 0xFF));
+                    int color = (0xFF << 24) | (r << 16) | (g << 8) | b;
+
+                    event.getGuiGraphics().drawString(
+                            Minecraft.getInstance().font,
+                            String.valueOf(character),
+                            webShotScaledX + Minecraft.getInstance().font.width(webShotText.substring(0, i)),
+                            webShotScaledY,
+                            color,
+                            false
+                    );
+                }
+
+                poseStack.popPose();
             }
         }
         RenderSystem.depthMask(true);

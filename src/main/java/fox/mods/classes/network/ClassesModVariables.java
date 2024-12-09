@@ -73,9 +73,11 @@ public class ClassesModVariables {
             clone.realTimeTicks = original.realTimeTicks;
             clone.roarAbilityInCooldown = original.roarAbilityInCooldown;
             clone.roarAbilityCooldown = original.roarAbilityCooldown;
-            clone.spiderRampage = original.spiderRampage;
-            clone.spiderRampageInCooldown = original.spiderRampageInCooldown;
-            clone.spiderRampageCooldown = original.spiderRampageCooldown;
+            clone.rampage = original.rampage;
+            clone.rampageInCooldown = original.rampageInCooldown;
+            clone.rampageCooldown = original.rampageCooldown;
+            clone.webShotInCooldown = original.webShotInCooldown;
+            clone.webShotCooldown = original.webShotCooldown;
             if (!event.isWasDeath()) {
             }
         }
@@ -118,9 +120,11 @@ public class ClassesModVariables {
         public double realTimeTicks = 0.0415;
         public boolean roarAbilityInCooldown = false;
         public double roarAbilityCooldown = 30.0;
-        public boolean spiderRampage = false;
-        public boolean spiderRampageInCooldown = false;
-        public double spiderRampageCooldown = 60.0;
+        public boolean rampage = false;
+        public boolean rampageInCooldown = false;
+        public double rampageCooldown = 60.0;
+        public boolean webShotInCooldown = false;
+        public double webShotCooldown = 30.0;
 
         public void syncPlayerVariables(Entity entity) {
             if (entity instanceof ServerPlayer serverPlayer)
@@ -135,9 +139,11 @@ public class ClassesModVariables {
             nbt.putDouble("realTimeTicks", realTimeTicks);
             nbt.putBoolean("roarAbilityInCooldown", roarAbilityInCooldown);
             nbt.putDouble("roarAbilityCooldown", roarAbilityCooldown);
-            nbt.putBoolean("spiderRampage", spiderRampage);
-            nbt.putBoolean("spiderRampageInCooldown", spiderRampageInCooldown);
-            nbt.putDouble("spiderRampageCooldown", spiderRampageCooldown);
+            nbt.putBoolean("rampage", rampage);
+            nbt.putBoolean("rampageInCooldown", rampageInCooldown);
+            nbt.putDouble("rampageCooldown", rampageCooldown);
+            nbt.putBoolean("webShotInCooldown", webShotInCooldown);
+            nbt.putDouble("webShotCooldown", webShotCooldown);
 
             return nbt;
         }
@@ -150,9 +156,11 @@ public class ClassesModVariables {
             realTimeTicks = nbt.getDouble("realTimeTicks");
             roarAbilityCooldown = nbt.getDouble("roarAbilityCooldown");
             roarAbilityInCooldown = nbt.getBoolean("roarAbilityInCooldown");
-            spiderRampage = nbt.getBoolean("spiderRampage");
-            spiderRampageInCooldown = nbt.getBoolean("spiderRampageInCooldown");
-            spiderRampageCooldown = nbt.getDouble("spiderRampageCooldown");
+            rampage = nbt.getBoolean("rampage");
+            rampageInCooldown = nbt.getBoolean("rampageInCooldown");
+            rampageCooldown = nbt.getDouble("rampageCooldown");
+            webShotInCooldown = nbt.getBoolean("webShotInCooldown");
+            webShotCooldown = nbt.getDouble("webShotCooldown");
         }
     }
 
@@ -188,9 +196,11 @@ public class ClassesModVariables {
                     variables.realTimeTicks = message.data.realTimeTicks;
                     variables.roarAbilityCooldown = message.data.roarAbilityCooldown;
                     variables.roarAbilityInCooldown = message.data.roarAbilityInCooldown;
-                    variables.spiderRampage = message.data.spiderRampage;
-                    variables.spiderRampageInCooldown = message.data.spiderRampageInCooldown;
-                    variables.spiderRampageCooldown = message.data.spiderRampageCooldown;
+                    variables.rampage = message.data.rampage;
+                    variables.rampageInCooldown = message.data.rampageInCooldown;
+                    variables.rampageCooldown = message.data.rampageCooldown;
+                    variables.webShotInCooldown = message.data.webShotInCooldown;
+                    variables.webShotCooldown = message.data.webShotCooldown;
                 }
             });
             context.setPacketHandled(true);

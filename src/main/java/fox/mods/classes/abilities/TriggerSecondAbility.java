@@ -1,8 +1,8 @@
 package fox.mods.classes.abilities;
 
 import fox.mods.classes.abilities.predator.RoarAbility;
+import fox.mods.classes.abilities.spider.WebShotAbility;
 import fox.mods.classes.utils.PlayerClassUtils;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 
 public class TriggerSecondAbility {
@@ -11,8 +11,8 @@ public class TriggerSecondAbility {
 
         if (PlayerClassUtils.isPredator(player)) {
             RoarAbility.trigger(player);
-        } else if (PlayerClassUtils.isGhost(player)) {
-            player.displayClientMessage(Component.literal("Work in progress."), true);
+        } else if (PlayerClassUtils.isSpider(player)) {
+            WebShotAbility.toggle(player);
         }
     }
 }
