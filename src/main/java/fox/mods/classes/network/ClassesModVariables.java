@@ -1,6 +1,8 @@
 package fox.mods.classes.network;
 
 import fox.mods.classes.classes.PlayerClass;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.NetworkEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -78,6 +80,13 @@ public class ClassesModVariables {
             clone.rampageCooldown = original.rampageCooldown;
             clone.webShotInCooldown = original.webShotInCooldown;
             clone.webShotCooldown = original.webShotCooldown;
+            clone.gliding = original.gliding;
+            clone.flightInCooldown = original.flightInCooldown;
+            clone.flightCooldown = original.flightCooldown;
+            clone.chestplateSlotItem = original.chestplateSlotItem;
+            clone.noClip = original.noClip;
+            clone.phasingInCooldown = original.phasingInCooldown;
+            clone.phasingCooldown = original.phasingCooldown;
             if (!event.isWasDeath()) {
             }
         }
@@ -125,6 +134,13 @@ public class ClassesModVariables {
         public double rampageCooldown = 60.0;
         public boolean webShotInCooldown = false;
         public double webShotCooldown = 30.0;
+        public boolean gliding = false;
+        public boolean flightInCooldown = false;
+        public double flightCooldown = 40.0;
+        public ItemStack chestplateSlotItem = ItemStack.EMPTY;
+        public boolean noClip = false;
+        public boolean phasingInCooldown = false;
+        public double phasingCooldown = 60.0;
 
         public void syncPlayerVariables(Entity entity) {
             if (entity instanceof ServerPlayer serverPlayer)
@@ -144,7 +160,13 @@ public class ClassesModVariables {
             nbt.putDouble("rampageCooldown", rampageCooldown);
             nbt.putBoolean("webShotInCooldown", webShotInCooldown);
             nbt.putDouble("webShotCooldown", webShotCooldown);
-
+            nbt.putBoolean("gliding", gliding);
+            nbt.putBoolean("flightInCooldown", flightInCooldown);
+            nbt.putDouble("flightCooldown", flightCooldown);
+            nbt.put("chestplateSlotItem", chestplateSlotItem.save(new CompoundTag()));
+            nbt.putBoolean("noClip", noClip);
+            nbt.putBoolean("phasingInCooldown", phasingInCooldown);
+            nbt.putDouble("phasingCooldown", phasingCooldown);
             return nbt;
         }
 
@@ -161,6 +183,13 @@ public class ClassesModVariables {
             rampageCooldown = nbt.getDouble("rampageCooldown");
             webShotInCooldown = nbt.getBoolean("webShotInCooldown");
             webShotCooldown = nbt.getDouble("webShotCooldown");
+            gliding = nbt.getBoolean("gliding");
+            flightInCooldown = nbt.getBoolean("flightInCooldown");
+            flightCooldown = nbt.getDouble("flightCooldown");
+            chestplateSlotItem = ItemStack.of(nbt.getCompound("chestplateSlotItem"));
+            noClip = nbt.getBoolean("noClip");
+            phasingInCooldown = nbt.getBoolean("phasingInCooldown");
+            phasingCooldown = nbt.getDouble("phasingCooldown");
         }
     }
 
@@ -201,6 +230,13 @@ public class ClassesModVariables {
                     variables.rampageCooldown = message.data.rampageCooldown;
                     variables.webShotInCooldown = message.data.webShotInCooldown;
                     variables.webShotCooldown = message.data.webShotCooldown;
+                    variables.gliding = message.data.gliding;
+                    variables.flightInCooldown = message.data.flightInCooldown;
+                    variables.flightCooldown = message.data.flightCooldown;
+                    variables.chestplateSlotItem = message.data.chestplateSlotItem;
+                    variables.noClip = message.data.noClip;
+                    variables.phasingInCooldown = message.data.phasingInCooldown;
+                    variables.phasingCooldown = message.data.phasingCooldown;
                 }
             });
             context.setPacketHandled(true);

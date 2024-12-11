@@ -1,5 +1,6 @@
 package fox.mods.classes.abilities;
 
+import fox.mods.classes.abilities.ghost.InvisibilityAbility;
 import fox.mods.classes.abilities.predator.RoarAbility;
 import fox.mods.classes.abilities.spider.WebShotAbility;
 import fox.mods.classes.utils.PlayerClassUtils;
@@ -13,6 +14,8 @@ public class TriggerSecondAbility {
             RoarAbility.trigger(player);
         } else if (PlayerClassUtils.isSpider(player)) {
             WebShotAbility.toggle(player);
+        } else if (PlayerClassUtils.isGhost(player)) {
+            InvisibilityAbility.toggle(player);
         }
     }
 }

@@ -34,6 +34,18 @@ public class PlayerClassUtils {
         return bool;
     }
 
+    public static boolean isEagle(Player player) {
+        boolean bool = false;
+        PlayerClass playerClass = player.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null)
+                .map(playerVariables -> playerVariables.classType)
+                .orElse(PlayerClass.HUMAN);
+
+        if (playerClass == PlayerClass.EAGLE) {
+            bool = true;
+        }
+        return bool;
+    }
+
     public static boolean isGhost(Player player) {
         boolean bool = false;
         PlayerClass playerClass = player.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null)

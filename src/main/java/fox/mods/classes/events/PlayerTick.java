@@ -48,18 +48,20 @@ public class PlayerTick {
         boolean webShotInCooldown = (entity.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new ClassesModVariables.PlayerVariables())).webShotInCooldown;
         double webShotCooldown = (entity.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new ClassesModVariables.PlayerVariables())).webShotCooldown;
 
+        boolean flightInCooldown = (entity.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new ClassesModVariables.PlayerVariables())).flightInCooldown;
+        double flightCooldown = (entity.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new ClassesModVariables.PlayerVariables())).flightCooldown;
+        boolean gliding = (entity.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new ClassesModVariables.PlayerVariables())).gliding;
+
         LevelAccessor world = entity.level();
 
         if (world.getLevelData().isRaining() && entity.level().canSeeSky(entity.blockPosition()) || entity.isInWater()) {
             if (!(entity.level().getBiome(entity.blockPosition()) == Biomes.DESERT) || !(entity.level().getBiome(entity.blockPosition()) == Biomes.SAVANNA)) {
-                if (entity instanceof Player player && PlayerClassUtils.isSpider(player)) {
-                    player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 40, 0));
+                if (entity instanceof Player player) {
+                    if (PlayerClassUtils.isSpider(player) || PlayerClassUtils.isEagle(player)) {
+                        player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 40, 0));
+                    }
                 }
             }
-        }
-
-        if (entity.isShiftKeyDown() && entity instanceof Player player && PlayerClassUtils.isSpider(player) && !entity.isInWater()) {
-            player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 20, 0));
         }
 
         if (leapInCooldown) {
@@ -171,6 +173,41 @@ public class PlayerTick {
                 double _setval = 30;
                 entity.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
                     capability.webShotCooldown = _setval;
+                    capability.syncPlayerVariables(entity);
+                });
+            }
+        }
+
+        if (flightInCooldown) {
+            {
+                double _setval = flightCooldown - realTimeTicks;
+                entity.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
+                    capability.flightCooldown = _setval;
+                    capability.syncPlayerVariables(entity);
+                });
+            }
+        }
+        if (flightCooldown <= 0) {
+            {
+                boolean _setval = false;
+                entity.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
+                    capability.flightInCooldown = _setval;
+                    capability.syncPlayerVariables(entity);
+                });
+            }
+            {
+                double _setval = 40;
+                entity.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
+                    capability.flightCooldown = _setval;
+                    capability.syncPlayerVariables(entity);
+                });
+            }
+        }
+        if (flightCooldown <= 30 && flightCooldown > 28) {
+            {
+                boolean _setval = false;
+                entity.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
+                    capability.gliding = _setval;
                     capability.syncPlayerVariables(entity);
                 });
             }

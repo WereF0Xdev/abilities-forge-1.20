@@ -5,7 +5,8 @@ public enum PlayerClass {
     PREDATOR("Predator", "§c"),
     GHOST("Ghost", "§7"),
     REPTILE("Reptile", "§a"),
-    SPIDER("Spider", "§4");
+    SPIDER("Spider", "§4"),
+    EAGLE("Eagle", "§f");
 
     private final String displayName;
     private final String displayColor;

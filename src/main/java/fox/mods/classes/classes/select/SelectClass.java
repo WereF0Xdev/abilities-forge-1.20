@@ -39,6 +39,14 @@ public class SelectClass {
         updateHealth(player);
     }
 
+    public static void eagle(Player player, boolean showMessage) {
+        PlayerClass playerClass = PlayerClass.EAGLE;
+        select(player, playerClass, showMessage);
+        setValueToAttribute(player, Attributes.MAX_HEALTH, 24);
+        updateHealth(player);
+        removeValueFromAttribute(player, Attributes.ATTACK_DAMAGE, 0.2);
+    }
+
 
     private static void select(Player player, PlayerClass playerClass, Boolean showMessage) {
         PlayerClassUtils.setPlayerClass(player, playerClass);
@@ -66,7 +74,7 @@ public class SelectClass {
                     .setBaseValue(((player.getAttributes().hasAttribute(attribute) ? player.getAttribute(attribute).getBaseValue() : 0) - value));
     }
 
-    public static void updateHealth(Player player) {
+    private static void updateHealth(Player player) {
         LevelAccessor world = player.level();
         player.hurt(new DamageSource(world.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(DamageTypes.GENERIC)), 1);
     }

@@ -1,5 +1,6 @@
 package fox.mods.classes.init;
 
+import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.client.event.EntityRenderersEvent;
