@@ -1,0 +1,11 @@
+{
+  "type": "forge:add_features",
+  "biomes": [
+    "old_growth_pine_taiga",
+    "old_growth_spruce_taiga",
+    "snowy_taiga",
+    "taiga"
+  ],
+  "features": "classes:champions_berries_plant",
+  "step": "vegetal_decoration"
+}

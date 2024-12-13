@@ -1,3 +1,6 @@
-{  "gui.classes.cooldown_overlay.label_leap": "§4ʟᴇᴀᴘ"
-
+{
+  "gui.classes.cooldown_overlay.label_leap": "§4ʟᴇᴀᴘ",
+  "item.classes.champions_berries": "Champion's Berries",
+  "block.classes.champions_berries_plant": "Champion's Berries Plant",
+  "item_group.classes.classes": "Classes"
 }

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:block",
+  "random_sequence": "classes:blocks/champions_berries_plant",
+  "pools": [
+    {
+      "rolls": 1.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "classes:champions_berries"
+        }
+      ]
+    }
+  ]
+}
