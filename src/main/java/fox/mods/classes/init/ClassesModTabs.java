@@ -21,6 +21,7 @@ public class ClassesModTabs {
             () -> CreativeModeTab.builder().title(Component.translatable("item_group.classes.classes")).icon(() -> new ItemStack(ClassesModItems.CHAMPIONS_BERRIES.get())).displayItems((parameters, tabData) -> {
                         tabData.accept(ClassesModItems.CHAMPIONS_BERRIES.get());
                         tabData.accept(ClassesModBlocks.CHAMPIONS_BERRIES_PLANT.get().asItem());
+                        tabData.accept(ClassesModItems.TOTEM_OF_REBIRTH.get());
                     })
 
                     .build());

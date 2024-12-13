@@ -37,7 +37,10 @@ public class BlockUtils {
             Blocks.WATER,
             Blocks.LAVA,
             Blocks.GRASS,
-            Blocks.TALL_GRASS
+            Blocks.TALL_GRASS,
+            Blocks.SNOW,
+            Blocks.POWDER_SNOW,
+            Blocks.DIRT_PATH
     );
 
     public static boolean isUnclimbable(BlockState blockState) {

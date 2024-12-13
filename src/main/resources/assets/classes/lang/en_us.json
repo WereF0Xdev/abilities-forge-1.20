@@ -1,6 +1,9 @@
 {
   "gui.classes.cooldown_overlay.label_leap": "§4ʟᴇᴀᴘ",
   "item.classes.champions_berries": "Champion's Berries",
+  "item.classes.totem_of_rebirth": "Totem Of Rebirth",
+  "item.classes.empty_totem_of_rebirth": "Empty Totem Of Rebirth",
   "block.classes.champions_berries_plant": "Champion's Berries Plant",
-  "item_group.classes.classes": "Classes"
+  "item_group.classes.classes": "Classes",
+  "item.classes.totem_of_rebirth.description_0": "§dAllows to choose another Class on death."
 }

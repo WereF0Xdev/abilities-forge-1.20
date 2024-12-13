@@ -87,6 +87,8 @@ public class ClassesModVariables {
             clone.noClip = original.noClip;
             clone.phasingInCooldown = original.phasingInCooldown;
             clone.phasingCooldown = original.phasingCooldown;
+            clone.usedTotemOfRebirth = original.usedTotemOfRebirth;
+            clone.totemOfRebirthUsages = original.totemOfRebirthUsages;
             if (!event.isWasDeath()) {
             }
         }
@@ -141,6 +143,8 @@ public class ClassesModVariables {
         public boolean noClip = false;
         public boolean phasingInCooldown = false;
         public double phasingCooldown = 60.0;
+        public boolean usedTotemOfRebirth = false;
+        public int totemOfRebirthUsages = 0;
 
         public void syncPlayerVariables(Entity entity) {
             if (entity instanceof ServerPlayer serverPlayer)
@@ -167,6 +171,8 @@ public class ClassesModVariables {
             nbt.putBoolean("noClip", noClip);
             nbt.putBoolean("phasingInCooldown", phasingInCooldown);
             nbt.putDouble("phasingCooldown", phasingCooldown);
+            nbt.putBoolean("usedTotemOfRebirth", usedTotemOfRebirth);
+            nbt.putInt("totemOfRebirthUsages", totemOfRebirthUsages);
             return nbt;
         }
 
@@ -190,6 +196,8 @@ public class ClassesModVariables {
             noClip = nbt.getBoolean("noClip");
             phasingInCooldown = nbt.getBoolean("phasingInCooldown");
             phasingCooldown = nbt.getDouble("phasingCooldown");
+            usedTotemOfRebirth = nbt.getBoolean("usedTotemOfRebirth");
+            totemOfRebirthUsages = nbt.getInt("totemOfRebirthUsages");
         }
     }
 
@@ -237,6 +245,8 @@ public class ClassesModVariables {
                     variables.noClip = message.data.noClip;
                     variables.phasingInCooldown = message.data.phasingInCooldown;
                     variables.phasingCooldown = message.data.phasingCooldown;
+                    variables.usedTotemOfRebirth = message.data.usedTotemOfRebirth;
+                    variables.totemOfRebirthUsages = message.data.totemOfRebirthUsages;
                 }
             });
             context.setPacketHandled(true);
