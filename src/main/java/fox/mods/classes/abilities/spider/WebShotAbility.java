@@ -1,5 +1,6 @@
 package fox.mods.classes.abilities.spider;
 
+// import fox.mods.classes.entity.WebShotEntity;
 import fox.mods.classes.entity.WebShotEntity;
 import fox.mods.classes.network.ClassesModVariables;
 import net.minecraft.network.chat.Component;

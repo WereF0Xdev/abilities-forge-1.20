@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "classes:ruined_castle",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 45,
+    "separation": 38,
+    "salt": 920635597
+  }
+}

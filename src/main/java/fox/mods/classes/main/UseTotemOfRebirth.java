@@ -1,7 +1,9 @@
 package fox.mods.classes.main;
 
+import fox.mods.classes.ClassesMod;
 import fox.mods.classes.init.ClassesModItems;
 import fox.mods.classes.network.ClassesModVariables;
+import fox.mods.classes.utils.AdvancementUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;

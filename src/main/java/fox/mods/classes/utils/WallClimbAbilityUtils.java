@@ -36,7 +36,7 @@ public class WallClimbAbilityUtils {
                 playerPos.west()}) {
 
             BlockState state = player.level().getBlockState(offset);
-            if (!BlockUtils.isUnclimbable(state)) {
+            if (!BlockUtils.isUnclimbable(player, state)) {
                 return true;
             }
         }

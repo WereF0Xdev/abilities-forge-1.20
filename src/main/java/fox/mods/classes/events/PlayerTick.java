@@ -64,6 +64,10 @@ public class PlayerTick {
             }
         }
 
+        if (entity instanceof Player player && PlayerClassUtils.isSpider(player) && player.isShiftKeyDown()) {
+            player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 20, 0));
+        }
+
         if (leapInCooldown) {
             {
                 double _setval = leapCooldown - realTimeTicks;

@@ -1,0 +1,26 @@
+{
+  "display": {
+    "background": "classes:textures/screens/advancement_category_background.png",
+    "icon": {
+      "item": "classes:totem_of_rebirth"
+    },
+    "title": {
+      "translate": "advancements.change_your_nature.title"
+    },
+    "description": {
+      "translate": "advancements.change_your_nature.descr"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "change_your_nature_0": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "rewards": {
+    "experience": 10
+  }
+}

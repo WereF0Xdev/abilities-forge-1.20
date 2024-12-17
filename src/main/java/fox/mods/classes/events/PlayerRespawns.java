@@ -4,6 +4,7 @@ import fox.mods.classes.ClassesMod;
 import fox.mods.classes.classes.select.SelectClass;
 import fox.mods.classes.init.ClassesModItems;
 import fox.mods.classes.network.ClassesModVariables;
+import fox.mods.classes.utils.AdvancementUtils;
 import fox.mods.classes.utils.PlayerClassUtils;
 import fox.mods.classes.utils.ScreensUtils;
 import net.minecraft.client.Minecraft;
@@ -46,6 +47,7 @@ public class PlayerRespawns {
                                 capability.syncPlayerVariables(player);
                             });
                         }
+                        AdvancementUtils.grant(player, ClassesMod.ADVANCEMENT_CHANGE_YOUR_NATURE);
                     });
                 }
             }

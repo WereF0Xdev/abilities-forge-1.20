@@ -22,6 +22,9 @@ public class ClassesModTabs {
                         tabData.accept(ClassesModItems.CHAMPIONS_BERRIES.get());
                         tabData.accept(ClassesModBlocks.CHAMPIONS_BERRIES_PLANT.get().asItem());
                         tabData.accept(ClassesModItems.TOTEM_OF_REBIRTH.get());
+                        tabData.accept(ClassesModBlocks.ANCIENT_IRON_VASE.get().asItem());
+                        tabData.accept(ClassesModBlocks.ANCIENT_GOLD_VASE.get().asItem());
+                        tabData.accept(ClassesModBlocks.ANCIENT_DIAMOND_VASE.get().asItem());
                     })
 
                     .build());
@@ -38,6 +41,12 @@ public class ClassesModTabs {
         if (tabData.getTabKey() == CreativeModeTabs.FOOD_AND_DRINKS) {
 
             tabData.accept(ClassesModItems.CHAMPIONS_BERRIES.get());
+        }
+
+        if (tabData.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) {
+            tabData.accept(ClassesModBlocks.ANCIENT_IRON_VASE);
+            tabData.accept(ClassesModBlocks.ANCIENT_GOLD_VASE);
+            tabData.accept(ClassesModBlocks.ANCIENT_DIAMOND_VASE);
         }
     }
 }

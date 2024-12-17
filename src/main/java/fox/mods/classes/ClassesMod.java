@@ -3,7 +3,9 @@ package fox.mods.classes;
 import fox.mods.classes.init.*;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.ForgeMod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
@@ -36,6 +38,7 @@ public class ClassesMod {
     public static final String MODID = "classes";
     public static final String SELECT_CLASSES_STRING_NAME = "SelectClass";
     public static final Double LEAP_MULTIPLIER = 3.0;
+    public static final String ADVANCEMENT_CHANGE_YOUR_NATURE = "classes:change_your_nature";
 
     public ClassesMod() {
 
