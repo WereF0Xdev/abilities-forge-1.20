@@ -32,7 +32,7 @@ public class LavaSlimeRenderer extends MobRenderer<LavaSlimeEntity, Modellava_sl
             public void setupAnim(LavaSlimeEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
                 this.root().getAllParts().forEach(ModelPart::resetPose);
                 if (DisplayLavaSlimeAnimations.idle(entity))
-                    this.animateWalk(lava_slimeAnimation.walking, limbSwing, limbSwingAmount, 1f, 1f);
+                    this.animateWalk(lava_slimeAnimation.idle, limbSwing, limbSwingAmount, 1f, 1f);
                 this.animate(entity.animationState1, lava_slimeAnimation.attacking, ageInTicks, 1f);
                 this.animate(entity.animationState2, lava_slimeAnimation.Dying, ageInTicks, 1f);
             }

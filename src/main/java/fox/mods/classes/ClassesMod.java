@@ -39,6 +39,9 @@ public class ClassesMod {
     public static final String SELECT_CLASSES_STRING_NAME = "SelectClass";
     public static final Double LEAP_MULTIPLIER = 3.0;
     public static final String ADVANCEMENT_CHANGE_YOUR_NATURE = "classes:change_your_nature";
+    public static final Double EASY_DIFFICULTY_LAVA_SLIME_DUPE_CHANCE = 0.25;
+    public static final Double NORMAL_DIFFICULTY_LAVA_SLIME_DUPE_CHANCE = 0.30;
+    public static final Double HARD_DIFFICULTY_LAVA_SLIME_DUPE_CHANCE = 0.35;
 
     public ClassesMod() {
 
