@@ -18,7 +18,7 @@ public class WebShotAbility {
         }
     }
 
-    public static void toggleAbility(Player player) {
+    private static void toggleAbility(Player player) {
         {
             boolean _setval = true;
             player.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
@@ -29,12 +29,12 @@ public class WebShotAbility {
         WebShotEntity.shoot(player.level(), player, RandomSource.create());
     }
 
-    public static void displayCooldownMessage(Player player) {
+    private static void displayCooldownMessage(Player player) {
         double abilityCooldown = (player.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new ClassesModVariables.PlayerVariables())).webShotCooldown;
         player.displayClientMessage(Component.literal("§cWebShot §fis charging! §7(" + (new java.text.DecimalFormat("##").format(abilityCooldown)) + "s)"), true);
     }
 
-    public static boolean isInCooldown(Player player) {
+    private static boolean isInCooldown(Player player) {
         boolean abilityInCooldown = (player.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new ClassesModVariables.PlayerVariables())).webShotInCooldown;
         return abilityInCooldown;
     }

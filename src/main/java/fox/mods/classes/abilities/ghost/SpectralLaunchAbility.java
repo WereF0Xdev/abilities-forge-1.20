@@ -1,41 +1,38 @@
 package fox.mods.classes.abilities.ghost;
 
 import fox.mods.classes.network.ClassesModVariables;
+import fox.mods.classes.utils.ParticlesUtils;
 import fox.mods.classes.utils.PlayerClassUtils;
-import net.minecraft.core.BlockPos;
+import fox.mods.classes.utils.SoundUtils;
 import net.minecraft.core.particles.DustColorTransitionOptions;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.joml.Vector3f;
 
-public class PhasingAbility {
+public class SpectralLaunchAbility {
 
     private static boolean isToggled(Player player) {
-        boolean abilityState = (player.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new ClassesModVariables.PlayerVariables())).noClip;
+        boolean abilityState = (player.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new ClassesModVariables.PlayerVariables())).spectralLaunch;
         return abilityState;
     }
 
     private static boolean isInCooldown(Player player) {
-        boolean abilityInCooldown = (player.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new ClassesModVariables.PlayerVariables())).phasingInCooldown;
+        boolean abilityInCooldown = (player.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new ClassesModVariables.PlayerVariables())).spectralLaunchInCooldown;
         return abilityInCooldown;
     }
 
     private static void displayCooldownMessage(Player player) {
-        double abilityCooldown = (player.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new ClassesModVariables.PlayerVariables())).phasingCooldown;
-        player.displayClientMessage(Component.literal(PlayerClassUtils.getPlayerClass(player).getDisplayColor() + "Phasing §fis charging! §7(" + (new java.text.DecimalFormat("##").format(abilityCooldown)) + "s)"), true);
+        double abilityCooldown = (player.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new ClassesModVariables.PlayerVariables())).spectralLaunchCooldown;
+        player.displayClientMessage(Component.literal(PlayerClassUtils.getPlayerClass(player).getDisplayColor() + "Spectral Launch §fis charging! §7(" + (new java.text.DecimalFormat("##").format(abilityCooldown)) + "s)"), true);
     }
 
     private static void toggleAbility(Player player) {
         {
             boolean _setval = true;
             player.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
-                capability.noClip = _setval;
+                capability.spectralLaunch = _setval;
                 capability.syncPlayerVariables(player);
             });
         }
@@ -43,10 +40,12 @@ public class PhasingAbility {
         {
             boolean _setval = true;
             player.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
-                capability.phasingInCooldown = _setval;
+                capability.spectralLaunchInCooldown = _setval;
                 capability.syncPlayerVariables(player);
             });
         }
+        ParticlesUtils.spawnColorTransitionCircleParticles(player, player.level(), new Vector3f(0.5f, 0.5f, 0.5f), new Vector3f(1.0f, 0.84f, 0.0f), 60, 2);
+        SoundUtils.playPlayer(player, "block.beacon.activate");
     }
 
     public static void toggle(Player player) {
@@ -58,5 +57,4 @@ public class PhasingAbility {
             displayCooldownMessage(player);
         }
     }
-
 }

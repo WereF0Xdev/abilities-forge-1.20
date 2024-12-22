@@ -1,15 +1,12 @@
 package fox.mods.classes.abilities.spider;
 
 import fox.mods.classes.network.ClassesModVariables;
-import net.minecraft.core.BlockPos;
+import fox.mods.classes.utils.SoundUtils;
 import net.minecraft.core.particles.DustColorTransitionOptions;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.joml.Vector3f;
 
 public class RampageAbility {
@@ -24,12 +21,12 @@ public class RampageAbility {
         }
     }
 
-    public static boolean isToggled(Player player) {
+    private static boolean isToggled(Player player) {
         boolean abilityState = (player.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new ClassesModVariables.PlayerVariables())).rampage;
         return abilityState;
     }
 
-    public static void toggleAbility(Player player) {
+    private static void toggleAbility(Player player) {
         {
             boolean _setval = true;
             player.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
@@ -46,21 +43,21 @@ public class RampageAbility {
             });
         }
 
-        playSound(player);
+        SoundUtils.playPlayer(player, "entity.wither.spawn");
         spawnCircleParticles(player, player.level(), 30, 2);
     }
 
-    public static boolean isInCooldown(Player player) {
+    private static boolean isInCooldown(Player player) {
         boolean abilityInCooldown = (player.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new ClassesModVariables.PlayerVariables())).rampageInCooldown;
         return abilityInCooldown;
     }
 
-    public static void displayCooldownMessage(Player player) {
+    private static void displayCooldownMessage(Player player) {
         double abilityCooldown = (player.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new ClassesModVariables.PlayerVariables())).rampageCooldown;
         player.displayClientMessage(Component.literal("§cRampage §fis charging! §7(" + (new java.text.DecimalFormat("##").format(abilityCooldown)) + "s)"), true);
     }
 
-    public static void spawnCircleParticles(Player player, Level level, int particleCount, double radius) {
+    private static void spawnCircleParticles(Player player, Level level, int particleCount, double radius) {
         if (!(level instanceof ServerLevel serverLevel)) {
             return;
         }
@@ -82,18 +79,6 @@ public class RampageAbility {
             DustColorTransitionOptions particleOptions = new DustColorTransitionOptions(startColor, endColor, particleSize);
 
             serverLevel.sendParticles(particleOptions, x, playerY, z, 1, 0, 0, 0, 0);
-        }
-    }
-
-    public static void playSound(Player player) {
-        Level _level = player.level();
-        double x = player.getX();
-        double y = player.getY();
-        double z = player.getZ();
-        if (!_level.isClientSide()) {
-            _level.playSound(null, BlockPos.containing(x, y, z), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("entity.wither.spawn")), SoundSource.NEUTRAL, 20, 1);
-        } else {
-            _level.playLocalSound(x, y, z, ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("entity.wither.spawn")), SoundSource.NEUTRAL, 20, 1, false);
         }
     }
 }

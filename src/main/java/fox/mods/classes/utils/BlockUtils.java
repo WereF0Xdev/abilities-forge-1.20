@@ -49,7 +49,15 @@ public class BlockUtils {
             Blocks.DIRT_PATH
     );
 
+    public static final List<Block> ALIVEABLE_BLOCKS = List.of(
+            Blocks.STONE
+    );
+
     public static boolean isUnclimbable(Player player, BlockState blockState) {
         return UNCLIMBABLE_BLOCKS.contains(blockState.getBlock()) || blockState.isStickyBlock() || blockState.isAir() || isFlower(player.level(), blockState);
+    }
+
+    public static boolean isAlivable(Player player, BlockState blockState) {
+        return ALIVEABLE_BLOCKS.contains(blockState.getBlock());
     }
 }

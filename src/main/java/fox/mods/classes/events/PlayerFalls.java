@@ -1,6 +1,7 @@
 package fox.mods.classes.events;
 
 import fox.mods.classes.utils.PlayerClassUtils;
+import fox.mods.classes.utils.SoundUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.ResourceLocation;
@@ -41,24 +42,20 @@ public class PlayerFalls {
             double y = player.getY();
             double z = player.getZ();
             if (distance >= 2.5) {
-                if (PlayerClassUtils.isEagle(player)) {
+                if (PlayerClassUtils.isEagle(player) || PlayerClassUtils.isGhost(player)) {
                     if (event != null && event.isCancelable()) {
                         event.setCanceled(true);
                     } else if (event != null && event.hasResult()) {
                         event.setResult(Event.Result.DENY);
                     }
                     spawnCircleParticles(player, level, 30, 1);
-                    if (!level.isClientSide()) {
-                        level.playSound(null, BlockPos.containing(x, y, z), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("entity.player.big_fall")), SoundSource.NEUTRAL, 20, 1);
-                    } else {
-                        level.playLocalSound(x, y, z, ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("entity.player.big_fall")), SoundSource.NEUTRAL, 20, 1, false);
-                    }
+                    SoundUtils.playPlayer(player, "entity.player.big_fall");
                 }
             }
         }
     }
 
-        public static void spawnCircleParticles(Player player, Level level, int particleCount, double radius) {
+        private static void spawnCircleParticles(Player player, Level level, int particleCount, double radius) {
         if (!(level instanceof ServerLevel serverLevel)) {
             return;
         }

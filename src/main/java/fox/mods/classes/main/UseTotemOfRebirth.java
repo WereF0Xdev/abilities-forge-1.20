@@ -4,6 +4,7 @@ import fox.mods.classes.ClassesMod;
 import fox.mods.classes.init.ClassesModItems;
 import fox.mods.classes.network.ClassesModVariables;
 import fox.mods.classes.utils.AdvancementUtils;
+import fox.mods.classes.utils.SoundUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -37,7 +38,7 @@ public class UseTotemOfRebirth {
         player.getInventory().setChanged();
         setDurability(player);
         cooldownItem(player);
-        playSound(player);
+        SoundUtils.playPlayer(player, "item.totem.use");
         spawnCircleParticles(player, player.level(), 15, 1);
         if (player.level().isClientSide())
             Minecraft.getInstance().gameRenderer.displayItemActivation(new ItemStack(ClassesModItems.TOTEM_OF_REBIRTH.get()));
@@ -58,22 +59,10 @@ public class UseTotemOfRebirth {
         player.getInventory().setChanged();
         setDurability(player);
         cooldownItem(player);
-        playSound(player);
+        SoundUtils.playPlayer(player, "item.totem.use");
         spawnCircleParticles(player, player.level(), 15, 1);
         if (player.level().isClientSide())
             Minecraft.getInstance().gameRenderer.displayItemActivation(new ItemStack(ClassesModItems.EMPTY_TOTEM_OF_REBIRTH.get()));
-    }
-
-    private static void playSound(Player player) {
-        Level _level = player.level();
-        double x = player.getX();
-        double y = player.getY();
-        double z = player.getZ();
-        if (!_level.isClientSide()) {
-            _level.playSound(null, BlockPos.containing(x, y, z), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("item.totem.use")), SoundSource.NEUTRAL, 20, 1);
-        } else {
-            _level.playLocalSound(x, y, z, ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("item.totem.use")), SoundSource.NEUTRAL, 20, 1, false);
-        }
     }
 
     private static void spawnCircleParticles(Player player, Level level, int particleCount, double radius) {

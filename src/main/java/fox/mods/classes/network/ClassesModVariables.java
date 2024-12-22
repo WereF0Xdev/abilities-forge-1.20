@@ -89,6 +89,9 @@ public class ClassesModVariables {
             clone.phasingCooldown = original.phasingCooldown;
             clone.usedTotemOfRebirth = original.usedTotemOfRebirth;
             clone.totemOfRebirthUsages = original.totemOfRebirthUsages;
+            clone.spectralLaunch = original.spectralLaunch;
+            clone.spectralLaunchInCooldown = original.spectralLaunchInCooldown;
+            clone.spectralLaunchCooldown = original.spectralLaunchCooldown;
             if (!event.isWasDeath()) {
             }
         }
@@ -145,6 +148,9 @@ public class ClassesModVariables {
         public double phasingCooldown = 60.0;
         public boolean usedTotemOfRebirth = false;
         public int totemOfRebirthUsages = 0;
+        public boolean spectralLaunch = false;
+        public boolean spectralLaunchInCooldown = false;
+        public double spectralLaunchCooldown = 60.0;
 
         public void syncPlayerVariables(Entity entity) {
             if (entity instanceof ServerPlayer serverPlayer)
@@ -173,6 +179,9 @@ public class ClassesModVariables {
             nbt.putDouble("phasingCooldown", phasingCooldown);
             nbt.putBoolean("usedTotemOfRebirth", usedTotemOfRebirth);
             nbt.putInt("totemOfRebirthUsages", totemOfRebirthUsages);
+            nbt.putBoolean("spectralLaunch", spectralLaunch);
+            nbt.putBoolean("spectralLaunchInCooldown", spectralLaunchInCooldown);
+            nbt.putDouble("spectralLaunchCooldown", spectralLaunchCooldown);
             return nbt;
         }
 
@@ -198,6 +207,9 @@ public class ClassesModVariables {
             phasingCooldown = nbt.getDouble("phasingCooldown");
             usedTotemOfRebirth = nbt.getBoolean("usedTotemOfRebirth");
             totemOfRebirthUsages = nbt.getInt("totemOfRebirthUsages");
+            spectralLaunch = nbt.getBoolean("spectralLaunch");
+            spectralLaunchInCooldown = nbt.getBoolean("spectralLaunchInCooldown");
+            spectralLaunchCooldown = nbt.getDouble("spectralLaunchCooldown");
         }
     }
 
@@ -247,6 +259,9 @@ public class ClassesModVariables {
                     variables.phasingCooldown = message.data.phasingCooldown;
                     variables.usedTotemOfRebirth = message.data.usedTotemOfRebirth;
                     variables.totemOfRebirthUsages = message.data.totemOfRebirthUsages;
+                    variables.spectralLaunch = message.data.spectralLaunch;
+                    variables.spectralLaunchInCooldown = message.data.spectralLaunchInCooldown;
+                    variables.spectralLaunchCooldown = message.data.spectralLaunchCooldown;
                 }
             });
             context.setPacketHandled(true);

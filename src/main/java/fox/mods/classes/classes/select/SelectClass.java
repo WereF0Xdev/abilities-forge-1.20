@@ -30,6 +30,10 @@ public class SelectClass {
     public static void ghost(Player player, Boolean showMessage) {
         PlayerClass playerClass = PlayerClass.GHOST;
         select(player, playerClass, showMessage);
+        removeValueFromAttribute(player, ForgeMod.BLOCK_REACH.get(), 0.5);
+        removeValueFromAttribute(player, Attributes.MAX_HEALTH, 8);
+        updateHealth(player);
+        player.addEffect(new MobEffectInstance(MobEffects.LUCK, 999999999, 1, false, false));
     }
 
     public static void spider(Player player, boolean showMessage) {

@@ -2,6 +2,7 @@ package fox.mods.classes.item;
 
 import fox.mods.classes.ClassesMod;
 import fox.mods.classes.network.ClassesModVariables;
+import fox.mods.classes.utils.SoundUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.ResourceLocation;
@@ -53,13 +54,13 @@ public class ChampionsBerriesItem extends Item {
                     }
                 });
                 spawnSwirlParticles(player);
-                playSound(player);
+                SoundUtils.playPlayer(player, "block.amethyst_block.place");
             }
 
         }
     }
 
-    public static void spawnSwirlParticles(Player player) {
+    private static void spawnSwirlParticles(Player player) {
         if (!(player.level() instanceof ServerLevel serverLevel)) {
             return;
         }
@@ -93,18 +94,5 @@ public class ChampionsBerriesItem extends Item {
             }
         }
     }
-
-    public static void playSound(Player player) {
-        Level _level = player.level();
-        double x = player.getX();
-        double y = player.getY();
-        double z = player.getZ();
-        if (!_level.isClientSide()) {
-            _level.playSound(null, BlockPos.containing(x, y, z), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("block.amethyst_block.place")), SoundSource.NEUTRAL, 20, 1);
-        } else {
-            _level.playLocalSound(x, y, z, ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("block.amethyst_block.place")), SoundSource.NEUTRAL, 20, 1, false);
-        }
-    }
-
 }
 

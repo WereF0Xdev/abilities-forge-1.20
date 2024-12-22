@@ -82,7 +82,7 @@ public class RoarAbility {
         player.removeEffect(MobEffects.BLINDNESS);
     }
 
-    public static void spawnSphereParticles(Player player, Level level, int particleCount, double radius) {
+    private static void spawnSphereParticles(Player player, Level level, int particleCount, double radius) {
         if (!(level instanceof ServerLevel serverLevel)) {
             return;
         }

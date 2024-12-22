@@ -10,5 +10,7 @@
   "item_group.classes.classes": "Classes",
   "item.classes.totem_of_rebirth.description_0": "§dAllows to choose another Class on death.",
   "advancements.change_your_nature.title": "Change Your Nature!",
-  "advancements.change_your_nature.descr": "Change your Class with a Totem of Rebirth."
+  "advancements.change_your_nature.descr": "Change your Class with a Totem of Rebirth.",
+  "entity.classes.lava_slime": "Lava Slime",
+  "entity.classes.ghost_block": "Ghost Block"
 }

@@ -1,5 +1,6 @@
 package fox.mods.classes.init;
 
+import fox.mods.classes.client.model.Modelghost_block;
 import fox.mods.classes.client.model.Modellava_slime;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -11,6 +12,7 @@ public class ClassesModModels {
     @SubscribeEvent
     public static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(Modellava_slime.LAYER_LOCATION, Modellava_slime::createBodyLayer);
+        event.registerLayerDefinition(Modelghost_block.LAYER_LOCATION, Modelghost_block::createBodyLayer);
     }
 }
 

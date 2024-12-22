@@ -52,6 +52,15 @@ public class PlayerTick {
         double flightCooldown = (entity.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new ClassesModVariables.PlayerVariables())).flightCooldown;
         boolean gliding = (entity.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new ClassesModVariables.PlayerVariables())).gliding;
 
+        boolean noClip = (entity.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new ClassesModVariables.PlayerVariables())).noClip;
+        boolean phasingInCooldown = (entity.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new ClassesModVariables.PlayerVariables())).phasingInCooldown;
+        double phasingCooldown = (entity.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new ClassesModVariables.PlayerVariables())).phasingCooldown;
+
+        boolean spectralLaunch = (entity.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new ClassesModVariables.PlayerVariables())).spectralLaunch;
+        boolean spectralLaunchInCooldown = (entity.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new ClassesModVariables.PlayerVariables())).spectralLaunchInCooldown;
+        double spectralLaunchCooldown = (entity.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new ClassesModVariables.PlayerVariables())).spectralLaunchCooldown;
+
+
         LevelAccessor world = entity.level();
 
         if (world.getLevelData().isRaining() && entity.level().canSeeSky(entity.blockPosition()) || entity.isInWater()) {
@@ -212,6 +221,151 @@ public class PlayerTick {
                 boolean _setval = false;
                 entity.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
                     capability.gliding = _setval;
+                    capability.syncPlayerVariables(entity);
+                });
+            }
+        }
+
+        if (phasingInCooldown) {
+            {
+                double _setval = phasingCooldown - realTimeTicks;
+                entity.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
+                    capability.phasingCooldown = _setval;
+                    capability.syncPlayerVariables(entity);
+                });
+            }
+        }
+        if (phasingCooldown <= 0) {
+            {
+                boolean _setval = false;
+                entity.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
+                    capability.phasingInCooldown = _setval;
+                    capability.syncPlayerVariables(entity);
+                });
+            }
+            {
+                double _setval = 60;
+                entity.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
+                    capability.phasingCooldown = _setval;
+                    capability.syncPlayerVariables(entity);
+                });
+            }
+        }
+        if (phasingCooldown <= 30 && phasingCooldown > 28) {
+            {
+                boolean _setval = false;
+                entity.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
+                    capability.noClip = _setval;
+                    capability.syncPlayerVariables(entity);
+                });
+            }
+        }
+
+        if (phasingInCooldown) {
+            {
+                double _setval = phasingCooldown - realTimeTicks;
+                entity.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
+                    capability.phasingCooldown = _setval;
+                    capability.syncPlayerVariables(entity);
+                });
+            }
+        }
+        if (phasingCooldown <= 0) {
+            {
+                boolean _setval = false;
+                entity.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
+                    capability.phasingInCooldown = _setval;
+                    capability.syncPlayerVariables(entity);
+                });
+            }
+            {
+                double _setval = 60;
+                entity.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
+                    capability.phasingCooldown = _setval;
+                    capability.syncPlayerVariables(entity);
+                });
+            }
+        }
+        if (phasingCooldown <= 30 && phasingCooldown > 28) {
+            {
+                boolean _setval = false;
+                entity.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
+                    capability.noClip = _setval;
+                    capability.syncPlayerVariables(entity);
+                });
+            }
+        }
+
+
+        if (phasingInCooldown) {
+            {
+                double _setval = phasingCooldown - realTimeTicks;
+                entity.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
+                    capability.phasingCooldown = _setval;
+                    capability.syncPlayerVariables(entity);
+                });
+            }
+        }
+        if (phasingCooldown <= 0) {
+            {
+                boolean _setval = false;
+                entity.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
+                    capability.phasingInCooldown = _setval;
+                    capability.syncPlayerVariables(entity);
+                });
+            }
+            {
+                double _setval = 60;
+                entity.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
+                    capability.phasingCooldown = _setval;
+                    capability.syncPlayerVariables(entity);
+                });
+            }
+        }
+        if (phasingCooldown <= 30 && phasingCooldown > 28) {
+            {
+                boolean _setval = false;
+                entity.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
+                    capability.noClip = _setval;
+                    capability.syncPlayerVariables(entity);
+                });
+            }
+        }
+
+
+
+
+
+        if (spectralLaunchInCooldown) {
+            {
+                double _setval = spectralLaunchCooldown - realTimeTicks;
+                entity.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
+                    capability.spectralLaunchCooldown = _setval;
+                    capability.syncPlayerVariables(entity);
+                });
+            }
+        }
+        if (spectralLaunchCooldown <= 0) {
+            {
+                boolean _setval = false;
+                entity.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
+                    capability.spectralLaunchInCooldown = _setval;
+                    capability.syncPlayerVariables(entity);
+                });
+            }
+            {
+                double _setval = 60;
+                entity.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
+                    capability.spectralLaunchCooldown = _setval;
+                    capability.syncPlayerVariables(entity);
+                });
+            }
+        }
+        if (spectralLaunchCooldown <= 30 && spectralLaunchCooldown > 28) {
+            {
+                boolean _setval = false;
+                entity.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
+                    capability.spectralLaunch = _setval;
                     capability.syncPlayerVariables(entity);
                 });
             }

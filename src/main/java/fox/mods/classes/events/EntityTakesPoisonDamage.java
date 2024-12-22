@@ -48,7 +48,7 @@ public class EntityTakesPoisonDamage {
         }
     }
 
-    public static void spawnCircleParticles(Player player, Level level, int particleCount, double radius) {
+    private static void spawnCircleParticles(Player player, Level level, int particleCount, double radius) {
         if (!(level instanceof ServerLevel serverLevel)) {
             return;
         }
@@ -67,7 +67,7 @@ public class EntityTakesPoisonDamage {
         }
     }
 
-    public static void playSound(Player player) {
+    private static void playSound(Player player) {
         Level _level = player.level();
         double x = player.getX();
         double y = player.getY();

@@ -1,5 +1,6 @@
 package fox.mods.classes.init;
 
+import fox.mods.classes.entity.GhostBlockEntity;
 import fox.mods.classes.entity.LavaSlimeEntity;
 import fox.mods.classes.entity.WebShotEntity;
 import net.minecraft.world.entity.Entity;
@@ -20,6 +21,8 @@ import fox.mods.classes.ClassesMod;
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ClassesModEntities {
     public static final DeferredRegister<EntityType<?>> REGISTRY = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, ClassesMod.MODID);
+    public static final RegistryObject<EntityType<GhostBlockEntity>> GHOST_BLOCK = register("ghost_block", EntityType.Builder.<GhostBlockEntity>of(GhostBlockEntity::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).setTrackingRange(64)
+            .setUpdateInterval(3).setCustomClientFactory(GhostBlockEntity::new).fireImmune().sized(0.6f, 1.8f));
     public static final RegistryObject<EntityType<LavaSlimeEntity>> LAVA_SLIME = register("lava_slime",
             EntityType.Builder.<LavaSlimeEntity>of(LavaSlimeEntity::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(LavaSlimeEntity::new)
 
@@ -37,12 +40,14 @@ public class ClassesModEntities {
     public static void init(FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
             LavaSlimeEntity.init();
+            GhostBlockEntity.init();
         });
     }
 
     @SubscribeEvent
     public static void registerAttributes(EntityAttributeCreationEvent event) {
         event.put(LAVA_SLIME.get(), LavaSlimeEntity.createAttributes().build());
+        event.put(GHOST_BLOCK.get(), GhostBlockEntity.createAttributes().build());
     }
 }
 

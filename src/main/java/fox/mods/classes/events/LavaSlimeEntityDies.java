@@ -3,16 +3,13 @@ package fox.mods.classes.events;
 import fox.mods.classes.ClassesMod;
 import fox.mods.classes.entity.LavaSlimeEntity;
 import fox.mods.classes.init.ClassesModEntities;
+import fox.mods.classes.utils.SoundUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.registries.ForgeRegistries;
 
 public class LavaSlimeEntityDies {
     public static void execute(Entity entity) {
@@ -37,22 +34,11 @@ public class LavaSlimeEntityDies {
                 newLavaSlime.moveTo(pos.getX(), pos.getY(), pos.getZ(), entity.getYRot(), entity.getXRot());
                 serverLevel.addFreshEntity(newLavaSlime);
                 spawnCircleParticles(newLavaSlime, newLavaSlime.level(), 15, 1);
-                playSound(newLavaSlime);
+                SoundUtils.playEntity(newLavaSlime, "entity.magma_cube.jump");
             }
         }
     }
 
-    private static void playSound(Entity entity) {
-        Level _level = entity.level();
-        double x = entity.getX();
-        double y = entity.getY();
-        double z = entity.getZ();
-        if (!_level.isClientSide()) {
-            _level.playSound(null, BlockPos.containing(x, y, z), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("entity.magma_cube.jump")), SoundSource.NEUTRAL, 20, 1);
-        } else {
-            _level.playLocalSound(x, y, z, ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("entity.magma_cube.jump")), SoundSource.NEUTRAL, 20, 1, false);
-        }
-    }
 
     private static void spawnCircleParticles(Entity entity, Level level, int particleCount, double radius) {
         if (!(level instanceof ServerLevel serverLevel)) {

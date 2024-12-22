@@ -2,16 +2,12 @@ package fox.mods.classes.events;
 
 import fox.mods.classes.ClassesMod;
 import fox.mods.classes.classes.select.SelectClass;
-import fox.mods.classes.init.ClassesModItems;
 import fox.mods.classes.network.ClassesModVariables;
 import fox.mods.classes.utils.AdvancementUtils;
 import fox.mods.classes.utils.PlayerClassUtils;
 import fox.mods.classes.utils.ScreensUtils;
-import net.minecraft.client.Minecraft;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.Event;
@@ -36,7 +32,7 @@ public class PlayerRespawns {
         if (!endconquered) {
             if (entity instanceof Player player) {
                 if (!usedTotem(player)) {
-                    assingClass(player);
+                    assignClass(player);
                 } else {
                     ClassesMod.queueServerWork(20, () -> {
                         ScreensUtils.open(ClassesMod.SELECT_CLASSES_STRING_NAME, player.level(), player.getX(), player.getY(), player.getZ(), player);
@@ -57,7 +53,7 @@ public class PlayerRespawns {
         }
     }
 
-    private static void assingClass(Player _player) {
+    private static void assignClass(Player _player) {
         if (PlayerClassUtils.isPredator(_player)) {
             SelectClass.predator(_player, false);
         } else if (PlayerClassUtils.isGhost(_player)) {

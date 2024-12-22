@@ -1,6 +1,7 @@
 package fox.mods.classes.main.deprecated;
 
 import fox.mods.classes.network.ClassesModVariables;
+import fox.mods.classes.utils.SoundUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.DustColorTransitionOptions;
 import net.minecraft.resources.ResourceLocation;
@@ -20,10 +21,10 @@ public class ReplaceElytra {
             player.getInventory().setChanged();
         }
         spawnCircleParticles(player, player.level(), 20, 2);
-        playSound(player);
+        SoundUtils.playPlayer(player, "block.beacon.deactivate");
     }
 
-    public static void spawnCircleParticles(Player player, Level level, int particleCount, double radius) {
+    private static void spawnCircleParticles(Player player, Level level, int particleCount, double radius) {
         if (!(level instanceof ServerLevel serverLevel)) {
             return;
         }
@@ -45,18 +46,6 @@ public class ReplaceElytra {
             DustColorTransitionOptions particleOptions = new DustColorTransitionOptions(startColor, endColor, particleSize);
 
             serverLevel.sendParticles(particleOptions, x, playerY, z, 1, 0, 0, 0, 0);
-        }
-    }
-
-    public static void playSound(Player player) {
-        Level _level = player.level();
-        double x = player.getX();
-        double y = player.getY();
-        double z = player.getZ();
-        if (!_level.isClientSide()) {
-            _level.playSound(null, BlockPos.containing(x, y, z), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("block.beacon.deactivate")), SoundSource.NEUTRAL, 20, 1);
-        } else {
-            _level.playLocalSound(x, y, z, ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("block.beacon.deactivate")), SoundSource.NEUTRAL, 20, 1, false);
         }
     }
 }
