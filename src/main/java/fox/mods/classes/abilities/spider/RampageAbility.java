@@ -1,6 +1,7 @@
 package fox.mods.classes.abilities.spider;
 
 import fox.mods.classes.network.ClassesModVariables;
+import fox.mods.classes.utils.ParticlesUtils;
 import fox.mods.classes.utils.SoundUtils;
 import net.minecraft.core.particles.DustColorTransitionOptions;
 import net.minecraft.network.chat.Component;
@@ -44,7 +45,7 @@ public class RampageAbility {
         }
 
         SoundUtils.playPlayer(player, "entity.wither.spawn");
-        spawnCircleParticles(player, player.level(), 30, 2);
+        ParticlesUtils.spawnColorTransitionCircleParticles(player, player.level(), new Vector3f(1.0f, 0.0f, 0.0f), new Vector3f(1.0f, 1.0f, 1.0f), 30, 2);
     }
 
     private static boolean isInCooldown(Player player) {
@@ -55,30 +56,5 @@ public class RampageAbility {
     private static void displayCooldownMessage(Player player) {
         double abilityCooldown = (player.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new ClassesModVariables.PlayerVariables())).rampageCooldown;
         player.displayClientMessage(Component.literal("§cRampage §fis charging! §7(" + (new java.text.DecimalFormat("##").format(abilityCooldown)) + "s)"), true);
-    }
-
-    private static void spawnCircleParticles(Player player, Level level, int particleCount, double radius) {
-        if (!(level instanceof ServerLevel serverLevel)) {
-            return;
-        }
-
-        double playerX = player.getX();
-        double playerY = player.getY() + 1.5;
-        double playerZ = player.getZ();
-
-        Vector3f startColor = new Vector3f(1.0f, 0.0f, 0.0f);
-        Vector3f endColor = new Vector3f(1.0f, 1.0f, 1.0f);
-        float particleSize = 1.0f;
-
-        for (int i = 0; i < particleCount; i++) {
-            double angle = 2 * Math.PI * i / particleCount;
-
-            double x = playerX + radius * Math.cos(angle);
-            double z = playerZ + radius * Math.sin(angle);
-
-            DustColorTransitionOptions particleOptions = new DustColorTransitionOptions(startColor, endColor, particleSize);
-
-            serverLevel.sendParticles(particleOptions, x, playerY, z, 1, 0, 0, 0, 0);
-        }
     }
 }

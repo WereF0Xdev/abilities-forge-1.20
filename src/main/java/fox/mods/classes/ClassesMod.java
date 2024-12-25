@@ -1,11 +1,6 @@
 package fox.mods.classes;
 
 import fox.mods.classes.init.*;
-import net.minecraft.client.renderer.entity.EntityRenderers;
-import net.minecraft.world.entity.ai.attributes.Attribute;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.common.ForgeMod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 

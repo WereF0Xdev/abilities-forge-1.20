@@ -1,8 +1,14 @@
 package fox.mods.classes.network;
 
 import fox.mods.classes.classes.PlayerClass;
+import net.minecraft.core.HolderGetter;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.nbt.NbtUtils;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.NetworkEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -31,6 +37,7 @@ import net.minecraft.client.Minecraft;
 import java.util.function.Supplier;
 
 import fox.mods.classes.ClassesMod;
+import net.minecraftforge.registries.ForgeRegistries;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ClassesModVariables {
@@ -92,6 +99,11 @@ public class ClassesModVariables {
             clone.spectralLaunch = original.spectralLaunch;
             clone.spectralLaunchInCooldown = original.spectralLaunchInCooldown;
             clone.spectralLaunchCooldown = original.spectralLaunchCooldown;
+            clone.blockLevitating = original.blockLevitating;
+            clone.blockLevitatingX = original.blockLevitatingX;
+            clone.blockLevitatingY = original.blockLevitatingY;
+            clone.blockLevitatingZ = original.blockLevitatingZ;
+            clone.blockLevitatingType = original.blockLevitatingType;
             if (!event.isWasDeath()) {
             }
         }
@@ -151,6 +163,11 @@ public class ClassesModVariables {
         public boolean spectralLaunch = false;
         public boolean spectralLaunchInCooldown = false;
         public double spectralLaunchCooldown = 60.0;
+        public boolean blockLevitating = false;
+        public double blockLevitatingX = 0;
+        public double blockLevitatingY = 0;
+        public double blockLevitatingZ = 0;
+        public String blockLevitatingType = Blocks.AIR.asItem().toString();
 
         public void syncPlayerVariables(Entity entity) {
             if (entity instanceof ServerPlayer serverPlayer)
@@ -182,6 +199,11 @@ public class ClassesModVariables {
             nbt.putBoolean("spectralLaunch", spectralLaunch);
             nbt.putBoolean("spectralLaunchInCooldown", spectralLaunchInCooldown);
             nbt.putDouble("spectralLaunchCooldown", spectralLaunchCooldown);
+            nbt.putBoolean("blockLevitating", blockLevitating);
+            nbt.putDouble("blockLevitatingX", blockLevitatingX);
+            nbt.putDouble("blockLevitatingY", blockLevitatingY);
+            nbt.putDouble("blockLevitatingZ", blockLevitatingZ);
+            nbt.putString("blockLevitatingType", blockLevitatingType);
             return nbt;
         }
 
@@ -210,6 +232,11 @@ public class ClassesModVariables {
             spectralLaunch = nbt.getBoolean("spectralLaunch");
             spectralLaunchInCooldown = nbt.getBoolean("spectralLaunchInCooldown");
             spectralLaunchCooldown = nbt.getDouble("spectralLaunchCooldown");
+            blockLevitating = nbt.getBoolean("blockLevitating");
+            blockLevitatingX = nbt.getDouble("blockLevitatingX");
+            blockLevitatingY = nbt.getDouble("blockLevitatingY");
+            blockLevitatingZ = nbt.getDouble("blockLevitatingZ");
+            blockLevitatingType = nbt.getString("blockLevitatingType");
         }
     }
 
@@ -262,6 +289,11 @@ public class ClassesModVariables {
                     variables.spectralLaunch = message.data.spectralLaunch;
                     variables.spectralLaunchInCooldown = message.data.spectralLaunchInCooldown;
                     variables.spectralLaunchCooldown = message.data.spectralLaunchCooldown;
+                    variables.blockLevitating = message.data.blockLevitating;
+                    variables.blockLevitatingX = message.data.blockLevitatingX;
+                    variables.blockLevitatingY = message.data.blockLevitatingY;
+                    variables.blockLevitatingZ = message.data.blockLevitatingZ;
+                    variables.blockLevitatingType = message.data.blockLevitatingType;
                 }
             });
             context.setPacketHandled(true);

@@ -1,39 +1,34 @@
-package fox.mods.classes.entity;
+package fox.mods.classes.entity.ghostblockvariants.cobblestone;
 
 import fox.mods.classes.init.ClassesModEntities;
-import net.minecraftforge.network.PlayMessages;
-import net.minecraftforge.network.NetworkHooks;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.entity.projectile.ThrownPotion;
-import net.minecraft.world.entity.projectile.AbstractArrow;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.ai.navigation.PathNavigation;
-import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
-import net.minecraft.world.entity.ai.control.FlyingMoveControl;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
-import net.minecraft.world.entity.PathfinderMob;
-import net.minecraft.world.entity.MobType;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.AreaEffectCloud;
-import net.minecraft.world.entity.AnimationState;
-import net.minecraft.world.damagesource.DamageTypes;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
-import net.minecraft.network.protocol.Packet;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.FlyingMoveControl;
+import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.ThrownPotion;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.network.NetworkHooks;
+import net.minecraftforge.network.PlayMessages;
 
-public class GhostBlockEntity extends PathfinderMob {
+public class GhostCobblestoneBlockEntity extends PathfinderMob {
     public final AnimationState animationState0 = new AnimationState();
 
-    public GhostBlockEntity(PlayMessages.SpawnEntity packet, Level world) {
-        this(ClassesModEntities.GHOST_BLOCK.get(), world);
+    public GhostCobblestoneBlockEntity(PlayMessages.SpawnEntity packet, Level world) {
+        this(ClassesModEntities.GHOST_COBBLESTONE_BLOCK.get(), world);
     }
 
-    public GhostBlockEntity(EntityType<GhostBlockEntity> type, Level world) {
+    public GhostCobblestoneBlockEntity(EntityType<GhostCobblestoneBlockEntity> type, Level world) {
         super(type, world);
         setMaxUpStep(0.6f);
         xpReward = 0;

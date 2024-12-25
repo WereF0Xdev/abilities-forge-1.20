@@ -29,13 +29,16 @@ public class PlayerEquipsItemInOffHand {
         if (entity == null)
             return;
         if (entity instanceof Player player) {
-            if (!slot.isArmor() && PlayerClassUtils.isGhost(player)) {
-                player.setItemSlot(slot, ItemStack.EMPTY);
+            if (!slot.isArmor()) {
+                if (PlayerClassUtils.isGhost(player) || PlayerClassUtils.isGiant(player)) {
 
-                boolean added = player.getInventory().add(itemStack);
+                    player.setItemSlot(slot, ItemStack.EMPTY);
 
-                if (!added && !player.level().isClientSide) {
-                    player.drop(itemStack, false);
+                    boolean added = player.getInventory().add(itemStack);
+
+                    if (!added && !player.level().isClientSide) {
+                        player.drop(itemStack, false);
+                    }
                 }
             }
         }

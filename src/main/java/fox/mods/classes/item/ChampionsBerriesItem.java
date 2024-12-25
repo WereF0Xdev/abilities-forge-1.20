@@ -17,6 +17,8 @@ import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import static fox.mods.classes.utils.ParticlesUtils.spawnSwirlParticles;
+
 public class ChampionsBerriesItem extends Item {
     public ChampionsBerriesItem() {
         super(new Item.Properties().stacksTo(48).rarity(Rarity.RARE).food((new FoodProperties.Builder()).nutrition(4).saturationMod(0.3f).alwaysEat().build()));
@@ -53,45 +55,10 @@ public class ChampionsBerriesItem extends Item {
                         });
                     }
                 });
-                spawnSwirlParticles(player);
+                spawnSwirlParticles(player, ParticleTypes.ELECTRIC_SPARK);
                 SoundUtils.playPlayer(player, "block.amethyst_block.place");
             }
 
-        }
-    }
-
-    private static void spawnSwirlParticles(Player player) {
-        if (!(player.level() instanceof ServerLevel serverLevel)) {
-            return;
-        }
-
-        double centerX = player.getX();
-        double centerY = player.getY();
-        double centerZ = player.getZ();
-
-        double radius = 1.0;
-        int heightSteps = 20;
-        int particlesPerStep = 20;
-
-        for (int step = 0; step < heightSteps; step++) {
-            double height = centerY + (step / (double) heightSteps) * 2.0;
-
-            for (int i = 0; i < particlesPerStep; i++) {
-                double angle = 2 * Math.PI * i / particlesPerStep;
-
-                double offsetX = radius * Math.cos(angle + (step * 0.1));
-                double offsetZ = radius * Math.sin(angle + (step * 0.1));
-
-                serverLevel.sendParticles(
-                        ParticleTypes.ELECTRIC_SPARK,
-                        centerX + offsetX,
-                        height,
-                        centerZ + offsetZ,
-                        1,
-                        0.0, 0.0, 0.0,
-                        0.0
-                );
-            }
         }
     }
 }

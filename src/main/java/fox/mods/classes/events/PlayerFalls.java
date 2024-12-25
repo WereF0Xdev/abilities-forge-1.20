@@ -1,5 +1,6 @@
 package fox.mods.classes.events;
 
+import fox.mods.classes.utils.ParticlesUtils;
 import fox.mods.classes.utils.PlayerClassUtils;
 import fox.mods.classes.utils.SoundUtils;
 import net.minecraft.core.BlockPos;
@@ -48,29 +49,10 @@ public class PlayerFalls {
                     } else if (event != null && event.hasResult()) {
                         event.setResult(Event.Result.DENY);
                     }
-                    spawnCircleParticles(player, level, 30, 1);
+                    ParticlesUtils.spawnFallCircleParticles(player, level, ParticleTypes.CLOUD, 30, 1);
                     SoundUtils.playPlayer(player, "entity.player.big_fall");
                 }
             }
-        }
-    }
-
-        private static void spawnCircleParticles(Player player, Level level, int particleCount, double radius) {
-        if (!(level instanceof ServerLevel serverLevel)) {
-            return;
-        }
-
-        double playerX = player.getX();
-        double playerY = player.getY();
-        double playerZ = player.getZ();
-
-        for (int i = 0; i < particleCount; i++) {
-            double angle = 2 * Math.PI * i / particleCount;
-
-            double x = playerX + radius * Math.cos(angle);
-            double z = playerZ + radius * Math.sin(angle);
-
-            serverLevel.sendParticles(ParticleTypes.CLOUD, x, playerY, z, 1, 0, 0, 0, 0);
         }
     }
 }

@@ -4,6 +4,7 @@ import fox.mods.classes.ClassesMod;
 import fox.mods.classes.init.ClassesModItems;
 import fox.mods.classes.network.ClassesModVariables;
 import fox.mods.classes.utils.AdvancementUtils;
+import fox.mods.classes.utils.ParticlesUtils;
 import fox.mods.classes.utils.SoundUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
@@ -39,7 +40,7 @@ public class UseTotemOfRebirth {
         setDurability(player);
         cooldownItem(player);
         SoundUtils.playPlayer(player, "item.totem.use");
-        spawnCircleParticles(player, player.level(), 15, 1);
+        ParticlesUtils.spawnCircleParticles(player, player.level(), ParticleTypes.TOTEM_OF_UNDYING, 15, 1);
         if (player.level().isClientSide())
             Minecraft.getInstance().gameRenderer.displayItemActivation(new ItemStack(ClassesModItems.TOTEM_OF_REBIRTH.get()));
     }
@@ -60,28 +61,9 @@ public class UseTotemOfRebirth {
         setDurability(player);
         cooldownItem(player);
         SoundUtils.playPlayer(player, "item.totem.use");
-        spawnCircleParticles(player, player.level(), 15, 1);
+        ParticlesUtils.spawnCircleParticles(player, player.level(), ParticleTypes.TOTEM_OF_UNDYING, 15, 1);
         if (player.level().isClientSide())
             Minecraft.getInstance().gameRenderer.displayItemActivation(new ItemStack(ClassesModItems.EMPTY_TOTEM_OF_REBIRTH.get()));
-    }
-
-    private static void spawnCircleParticles(Player player, Level level, int particleCount, double radius) {
-        if (!(level instanceof ServerLevel serverLevel)) {
-            return;
-        }
-
-        double playerX = player.getX();
-        double playerY = player.getY() + 1.5;
-        double playerZ = player.getZ();
-
-        for (int i = 0; i < particleCount; i++) {
-            double angle = 2 * Math.PI * i / particleCount;
-
-            double x = playerX + radius * Math.cos(angle);
-            double z = playerZ + radius * Math.sin(angle);
-
-            serverLevel.sendParticles(ParticleTypes.TOTEM_OF_UNDYING, x, playerY, z, 1, 0, 0, 0, 0);
-        }
     }
 
     private static int getDurability(Player player) {

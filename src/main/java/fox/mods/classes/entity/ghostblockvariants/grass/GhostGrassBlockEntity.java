@@ -1,4 +1,4 @@
-package fox.mods.classes.entity;
+package fox.mods.classes.entity.ghostblockvariants.grass;
 
 import fox.mods.classes.init.ClassesModEntities;
 import net.minecraftforge.network.PlayMessages;
@@ -26,14 +26,14 @@ import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.core.BlockPos;
 
-public class GhostBlockEntity extends PathfinderMob {
+public class GhostGrassBlockEntity extends PathfinderMob {
     public final AnimationState animationState0 = new AnimationState();
 
-    public GhostBlockEntity(PlayMessages.SpawnEntity packet, Level world) {
-        this(ClassesModEntities.GHOST_BLOCK.get(), world);
+    public GhostGrassBlockEntity(PlayMessages.SpawnEntity packet, Level world) {
+        this(ClassesModEntities.GHOST_GRASS_BLOCK.get(), world);
     }
 
-    public GhostBlockEntity(EntityType<GhostBlockEntity> type, Level world) {
+    public GhostGrassBlockEntity(EntityType<GhostGrassBlockEntity> type, Level world) {
         super(type, world);
         setMaxUpStep(0.6f);
         xpReward = 0;

@@ -3,6 +3,7 @@ package fox.mods.classes.classes.select;
 import fox.mods.classes.classes.PlayerClass;
 import fox.mods.classes.utils.PlayerClassUtils;
 import fox.mods.classes.utils.ScreensUtils;
+import fox.mods.classes.utils.SizeUtils;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.damagesource.DamageSource;
@@ -34,6 +35,16 @@ public class SelectClass {
         removeValueFromAttribute(player, Attributes.MAX_HEALTH, 8);
         updateHealth(player);
         player.addEffect(new MobEffectInstance(MobEffects.LUCK, 999999999, 1, false, false));
+    }
+
+    public static void giant(Player player, boolean showMessage) {
+        PlayerClass playerClass = PlayerClass.GIANT;
+        select(player, playerClass, showMessage);
+        addValueToAttribute(player, Attributes.MAX_HEALTH, 8);
+        addValueToAttribute(player, Attributes.ATTACK_DAMAGE, 1);
+        updateHealth(player);
+        SizeUtils.set(player.level(), player.getX(), player.getY(), player.getZ(), player, 1.5);
+        player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 999999999, 0, false, false));
     }
 
     public static void spider(Player player, boolean showMessage) {

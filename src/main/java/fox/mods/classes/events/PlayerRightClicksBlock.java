@@ -3,19 +3,15 @@ package fox.mods.classes.events;
 import fox.mods.classes.init.ClassesModEntities;
 import fox.mods.classes.network.ClassesModVariables;
 import fox.mods.classes.utils.BlockUtils;
+import fox.mods.classes.utils.ParticlesUtils;
 import fox.mods.classes.utils.PlayerClassUtils;
-import fox.mods.classes.utils.SoundUtils;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -23,7 +19,6 @@ import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
 
@@ -63,29 +58,65 @@ public class PlayerRightClicksBlock {
         }
         if (PlayerClassUtils.isGhost(entity)) {
             boolean spectralLaunch = (entity.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new ClassesModVariables.PlayerVariables())).spectralLaunch;
+            boolean blockLevitating = (entity.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new ClassesModVariables.PlayerVariables())).blockLevitating;
             if (spectralLaunch && !entity.isShiftKeyDown()) {
-                if (BlockUtils.isAlivable(entity, blockstate)) {
+                if (BlockUtils.isAlivable(entity, blockstate) && !blockLevitating) {
                     level.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
-                    spawnBlockBreakParticles(level, pos, blockstate);
-                    SoundUtils.playPlayer(entity, "entity.warden.emerge");
+                    ParticlesUtils.spawnBlockBreakParticles(level, pos, blockstate);
                     if (level instanceof ServerLevel _level) {
-                        Entity entityToSpawn = ClassesModEntities.GHOST_BLOCK.get().spawn(_level, pos, MobSpawnType.MOB_SUMMONED);
+                        Entity entityToSpawn = null;
+                        if (BlockUtils.isGhostStoneBlock(blockstate)) {
+                            entityToSpawn = ClassesModEntities.GHOST_BLOCK.get().spawn(_level, pos, MobSpawnType.MOB_SUMMONED);
+                        } else if (BlockUtils.isGhostGrassBlock(blockstate)) {
+                            entityToSpawn = ClassesModEntities.GHOST_GRASS_BLOCK.get().spawn(_level, pos, MobSpawnType.MOB_SUMMONED);
+                        } else if (BlockUtils.isGhostCobblestoneBlock(blockstate)) {
+                            entityToSpawn = ClassesModEntities.GHOST_COBBLESTONE_BLOCK.get().spawn(_level, pos, MobSpawnType.MOB_SUMMONED);
+                        }
                         if (entityToSpawn != null) {
                             entityToSpawn.setYRot(entity.getYRot());
                             entityToSpawn.setYBodyRot(entity.getYRot());
                             entityToSpawn.setYHeadRot(entity.getYRot());
                             entityToSpawn.setXRot(entity.getXRot());
+                            {
+                                boolean _setval = true;
+                                entity.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
+                                    capability.blockLevitating = _setval;
+                                    capability.syncPlayerVariables(entity);
+                                });
+                            }
+                            {
+                                double _setval = entityToSpawn.getX();
+                                entity.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
+                                    capability.blockLevitatingX = _setval;
+                                    capability.syncPlayerVariables(entity);
+                                });
+                            }
+                            {
+                                double _setval = entityToSpawn.getY();
+                                entity.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
+                                    capability.blockLevitatingY = _setval;
+                                    capability.syncPlayerVariables(entity);
+                                });
+                            }
+                            {
+                                double _setval = entityToSpawn.getZ();
+                                entity.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
+                                    capability.blockLevitatingZ = _setval;
+                                    capability.syncPlayerVariables(entity);
+                                });
+                            }
+                            {
+                                String _setval = blockstate.getBlock().asItem().toString();
+                                entity.getCapability(ClassesModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
+                                    capability.blockLevitatingType = _setval;
+                                    capability.syncPlayerVariables(entity);
+                                });
+                            }
                         }
                     }
                 }
             }
         }
-    }
-
-    private static void spawnBlockBreakParticles(Level level, BlockPos pos, BlockState blockState) {
-        if (!level.isClientSide()) return;
-
-        level.levelEvent(2001, pos, Block.getId(blockState));
     }
 }
 

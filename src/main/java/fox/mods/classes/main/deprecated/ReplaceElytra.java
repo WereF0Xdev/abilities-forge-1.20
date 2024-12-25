@@ -1,6 +1,7 @@
 package fox.mods.classes.main.deprecated;
 
 import fox.mods.classes.network.ClassesModVariables;
+import fox.mods.classes.utils.ParticlesUtils;
 import fox.mods.classes.utils.SoundUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.DustColorTransitionOptions;
@@ -20,32 +21,7 @@ public class ReplaceElytra {
             player.getInventory().armor.set(2, itemStack);
             player.getInventory().setChanged();
         }
-        spawnCircleParticles(player, player.level(), 20, 2);
+        ParticlesUtils.spawnColorTransitionCircleParticles(player, player.level(), new Vector3f(1.0f, 1.0f, 1.0f), new Vector3f(0.0f, 0.0f, 0.0f), 20, 2);
         SoundUtils.playPlayer(player, "block.beacon.deactivate");
-    }
-
-    private static void spawnCircleParticles(Player player, Level level, int particleCount, double radius) {
-        if (!(level instanceof ServerLevel serverLevel)) {
-            return;
-        }
-
-        double playerX = player.getX();
-        double playerY = player.getY() + 1.5;
-        double playerZ = player.getZ();
-
-        Vector3f startColor = new Vector3f(1.0f, 1.0f, 1.0f);
-        Vector3f endColor = new Vector3f(0.0f, 0.0f, 0.0f);
-        float particleSize = 1.0f;
-
-        for (int i = 0; i < particleCount; i++) {
-            double angle = 2 * Math.PI * i / particleCount;
-
-            double x = playerX + radius * Math.cos(angle);
-            double z = playerZ + radius * Math.sin(angle);
-
-            DustColorTransitionOptions particleOptions = new DustColorTransitionOptions(startColor, endColor, particleSize);
-
-            serverLevel.sendParticles(particleOptions, x, playerY, z, 1, 0, 0, 0, 0);
-        }
     }
 }
